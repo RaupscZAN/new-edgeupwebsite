@@ -268,3 +268,5 @@ const AboutPage: React.FC = () => {
 };
 
 export default AboutPage;
+
+export default AboutPage
