@@ -11,7 +11,6 @@ import {
   Blocks
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import Logo from '../common/Logo';
 
 const AdminSidebar: React.FC = () => {
   const location = useLocation();
@@ -32,7 +31,11 @@ const AdminSidebar: React.FC = () => {
       <div className="flex flex-col h-full">
         <div className="flex items-center h-16 px-4 bg-black/90">
           <Link to="/" className="flex items-center">
-            <Logo isWhite />
+            <img 
+              src="https://edgeup.in/wp-content/uploads/2024/03/edgeup-logo.png"
+              alt="EdgeUp"
+              className="h-10 brightness-0 invert"
+            />
           </Link>
         </div>
 
