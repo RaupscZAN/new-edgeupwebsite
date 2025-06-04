@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { useCMS } from '../../context/CMSContext';
+import Logo from '../common/Logo';
 
 const Header: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,27 +47,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center">
-            <div className="flex items-center">
-              {/* Logo with fallback */}
-              <img 
-                src={siteSettings?.logo || "https://edgeup.in/wp-content/uploads/2024/03/edgeup-logo.png"}
-                alt={siteSettings?.siteName || "EdgeUp"}
-                className="h-10"
-                onError={(e) => {
-                  // Fallback to text logo if image fails to load
-                  e.currentTarget.style.display = 'none';
-                  const textLogo = e.currentTarget.nextElementSibling as HTMLElement;
-                  if (textLogo) textLogo.style.display = 'block';
-                }}
-              />
-              {/* Text fallback logo */}
-              <span 
-                className="text-2xl font-bold text-[#094d88] hidden"
-                style={{ display: 'none' }}
-              >
-                {siteSettings?.siteName || "EdgeUp"}
-              </span>
-            </div>
+            <Logo />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-6">
