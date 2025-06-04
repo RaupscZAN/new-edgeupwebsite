@@ -10,7 +10,6 @@ import {
   MapPin 
 } from 'lucide-react';
 import { useCMS } from '../../context/CMSContext';
-import Logo from '../common/Logo';
 
 const Footer: React.FC = () => {
   const { siteSettings } = useCMS();
@@ -52,7 +51,12 @@ const Footer: React.FC = () => {
           <div className="lg:col-span-2">
             <Link to="/" className="inline-block mb-6">
               <div className="flex items-center">
-                <Logo isWhite />
+                {/* Use the logo directly without any filters for better appearance */}
+                <img 
+                  src={siteSettings?.logo || "https://edgeup.in/wp-content/uploads/2024/03/edgeup-logo.png"}
+                  alt={siteSettings?.siteName || "EdgeUp"}
+                  className="h-10"
+                />
               </div>
             </Link>
             <p className="text-gray-300 mb-6 max-w-md">
