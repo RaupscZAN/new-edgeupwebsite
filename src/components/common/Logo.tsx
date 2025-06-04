@@ -1,11 +1,7 @@
 import React from 'react';
 import { useCMS } from '../../context/CMSContext';
 
-interface LogoProps {
-  isWhite?: boolean;
-}
-
-const Logo: React.FC<LogoProps> = ({ isWhite = false }) => {
+const Logo: React.FC = () => {
   const { siteSettings } = useCMS();
   
   // Use the logo from settings, fallback to default EdgeUp logo
@@ -17,7 +13,7 @@ const Logo: React.FC<LogoProps> = ({ isWhite = false }) => {
       <img 
         src={logoUrl}
         alt={siteName}
-        className={`h-10 ${isWhite ? 'brightness-0 invert' : ''}`}
+        className="h-10"
       />
     </div>
   );
