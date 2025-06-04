@@ -20,8 +20,9 @@ interface CMSContextType {
   updateSiteSettings: (settings: SiteSettings) => void;
   addMedia: (item: MediaItem) => void;
   deleteMedia: (mediaId: string) => void;
-  addFormSubmission: (submission: Omit<FormSubmission, 'id' | 'submittedAt' | 'isRead'>) => void;
+  addFormSubmission: (submission: Omit<FormSubmission, 'id' | 'submittedAt' | 'isRead' | 'status'>) => void;
   markSubmissionAsRead: (submissionId: string) => void;
+  updateSubmission: (submissionId: string, updates: Partial<FormSubmission>) => void;
 }
 
 const CMSContext = createContext<CMSContextType | undefined>(undefined);
@@ -101,12 +102,13 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     setMedia(prevMedia => prevMedia.filter(item => item.id !== mediaId));
   };
 
-  const addFormSubmission = (submission: Omit<FormSubmission, 'id' | 'submittedAt' | 'isRead'>) => {
+  const addFormSubmission = (submission: Omit<FormSubmission, 'id' | 'submittedAt' | 'isRead' | 'status'>) => {
     const newSubmission: FormSubmission = {
       ...submission,
       id: Date.now().toString(),
       submittedAt: new Date().toISOString(),
-      isRead: false
+      isRead: false,
+      status: 'new'
     };
     
     setFormSubmissions(prevSubmissions => [newSubmission, ...prevSubmissions]);
@@ -117,6 +119,16 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
       prevSubmissions.map(submission => 
         submission.id === submissionId 
           ? { ...submission, isRead: true } 
+          : submission
+      )
+    );
+  };
+
+  const updateSubmission = (submissionId: string, updates: Partial<FormSubmission>) => {
+    setFormSubmissions(prevSubmissions => 
+      prevSubmissions.map(submission => 
+        submission.id === submissionId 
+          ? { ...submission, ...updates } 
           : submission
       )
     );
@@ -135,7 +147,8 @@ export const CMSProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     addMedia,
     deleteMedia,
     addFormSubmission,
-    markSubmissionAsRead
+    markSubmissionAsRead,
+    updateSubmission
   };
 
   return <CMSContext.Provider value={value}>{children}</CMSContext.Provider>;
