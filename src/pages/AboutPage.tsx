@@ -31,7 +31,7 @@ const AboutPage: React.FC = () => {
       name: "Jubran Siddique",
       position: "Chief Executive Officer",
       bio: "Former Head of AI at a leading EdTech company, Jubran brings deep expertise in machine learning and educational psychology.",
-      image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWjE2Wy3ZAA_uaEXnz5pvYbmGpxVOhv2q3mg&s",
       linkedin: "https://linkedin.com/in/jubran-siddique",
       twitter: "https://twitter.com/jubransiddique"
     },
@@ -39,7 +39,7 @@ const AboutPage: React.FC = () => {
       name: "Khalid Mohamed",
       position: "Chairman",
       bio: "With 20+ years in education technology, Khalid has helped scale multiple EdTech ventures across Asia.",
-      image: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1600",
+      image: "https://media.licdn.com/dms/image/v2/D5603AQFAafycikw0qg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1681290083962?e=1754524800&v=beta&t=mI399UEUgknOinTlsXcZYno3lrkaPnVu_mnh9Bi_D_8",
       linkedin: "https://linkedin.com/in/khalid-mohamed",
       twitter: "https://twitter.com/khalidmohamed"
     }
