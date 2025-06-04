@@ -143,16 +143,18 @@ const AboutPage: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {teamMembers.map((member, index) => (
               <div key={index} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="aspect-w-16 aspect-h-9">
-                  <img 
-                    src={member.image} 
-                    alt={member.name} 
-                    className="w-full h-64 object-cover"
-                  />
-                </div>
-                <div className="p-6">
+                <div className="p-6 pb-0">
                   <h3 className="text-xl font-semibold mb-1">{member.name}</h3>
                   <p className="text-blue-800 mb-4">{member.position}</p>
+                </div>
+                <div className="px-6 pt-4 pb-6">
+                  <div className="aspect-w-1 aspect-h-1 mb-6">
+                    <img 
+                      src={member.image} 
+                      alt={member.name} 
+                      className="w-full h-80 object-cover rounded-lg"
+                    />
+                  </div>
                   <p className="text-gray-600 mb-4">{member.bio}</p>
                   <div className="flex space-x-4">
                     <a 
