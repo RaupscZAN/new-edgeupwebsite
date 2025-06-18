@@ -122,23 +122,23 @@ const HomePage: React.FC = () => {
         <div className="container-custom relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
             {/* Left side - Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 relative z-20">
               <div className="space-y-6">
                 <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium animate-fade-in-up">
                   <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
                   Your Path to Digital Success
                 </div>
                 
-                <h1 className="heading-xl animate-typewriter">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight relative z-30 animate-fade-in-up delay-200">
                   AI-Powered Learning. Built for Institutions.
                 </h1>
                 
-                <p className="text-xl text-muted leading-relaxed animate-fade-in-up delay-300">
+                <p className="text-xl text-muted leading-relaxed animate-fade-in-up delay-300 relative z-30">
                   EdgeUp functions as an embedded study companion, enabling partners to offer adaptive learning journeys, smart content delivery, contextual nudges, and real-time learner support powered by proprietary AI models.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500 relative z-30">
                 <Link
                   to="/contact?demo=true"
                   className="btn-primary group"
@@ -157,7 +157,7 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Stats Cards */}
-              <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700">
+              <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700 relative z-30">
                 {stats.slice(0, 2).map((stat, index) => (
                   <div key={index} className="stat-card hover-lift">
                     <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg mb-3 mx-auto">
@@ -173,7 +173,7 @@ const HomePage: React.FC = () => {
             </div>
 
             {/* Right side - Dashboard Mockup */}
-            <div className="relative animate-fade-in-right delay-400">
+            <div className="relative animate-fade-in-right delay-400 z-10">
               <div className="relative bg-white rounded-2xl shadow-2xl p-6 hover-lift">
                 {/* Dashboard Header */}
                 <div className="flex items-center justify-between mb-6">
