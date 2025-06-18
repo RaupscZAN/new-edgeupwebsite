@@ -40,23 +40,28 @@ const Header: React.FC = () => {
 
   return (
     <header 
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white shadow-md py-2' : 'bg-transparent py-4'
-      }`}
+      className={`fixed w-full z-50 transition-all duration-500 ease-out ${
+        isScrolled 
+          ? 'bg-white/95 backdrop-blur-medium shadow-lg py-2' 
+          : 'bg-white/90 backdrop-blur-light py-4'
+      } animate-slide-in-top`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container-custom">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center">
-            <Logo />
+          <Link to="/" className="flex items-center group">
+            <div className="animate-pulse-slow">
+              <Logo />
+            </div>
           </Link>
 
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden lg:flex items-center space-x-8">
             {navItems.map((item, index) => (
               item.isButton ? (
                 <Link
                   key={index}
                   to={item.path}
-                  className="bg-[#10ac8b] hover:bg-[#10ac8b]/90 text-white px-5 py-2 rounded-md font-medium transition-all duration-300 transform hover:scale-105"
+                  className="btn-primary ripple magnetic hover-glow animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item.title}
                 </Link>
@@ -64,10 +69,10 @@ const Header: React.FC = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`text-sm font-medium transition-colors hover:text-[#094d88] ${
-                    location.pathname === item.path ? 'text-[#094d88]' : 
-                    isScrolled ? 'text-gray-900' : 'text-gray-900'
+                  className={`nav-link animate-fade-in-up ${
+                    location.pathname === item.path ? 'active' : ''
                   }`}
+                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item.title}
                 </Link>
@@ -76,47 +81,72 @@ const Header: React.FC = () => {
           </nav>
 
           <button
-            className="md:hidden text-gray-900 focus:outline-none"
+            className="lg:hidden text-gray-900 focus:outline-none magnetic hover-scale"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            {isOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            <div className="relative w-6 h-6">
+              <span className={`absolute inset-0 transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-0' : ''}`}>
+                {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </span>
+            </div>
           </button>
         </div>
       </div>
 
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg py-4 px-4">
-          <nav className="flex flex-col space-y-4">
-            {navItems.map((item, index) => (
-              item.isButton ? (
-                <Link
-                  key={index}
-                  to={item.path}
-                  className="bg-[#10ac8b] hover:bg-[#10ac8b]/90 text-white px-4 py-2 rounded-md font-medium text-center"
-                  onClick={toggleMenu}
-                >
-                  {item.title}
-                </Link>
-              ) : (
-                <Link
-                  key={index}
-                  to={item.path}
-                  className={`py-2 text-base font-medium ${
-                    location.pathname === item.path ? 'text-[#094d88]' : 'text-gray-900'
-                  }`}
-                  onClick={toggleMenu}
-                >
-                  {item.title}
-                </Link>
-              )
-            ))}
+      {/* Mobile Menu */}
+      <div className={`mobile-menu ${isOpen ? 'open' : 'closed'}`}>
+        <div className="flex flex-col h-full">
+          <div className="flex justify-between items-center p-6 border-b border-gray-100">
+            <Logo />
+            <button
+              onClick={toggleMenu}
+              className="text-gray-900 hover-scale"
+            >
+              <X className="h-6 w-6" />
+            </button>
+          </div>
+          
+          <nav className="flex-1 px-6 py-8">
+            <div className="space-y-6">
+              {navItems.map((item, index) => (
+                item.isButton ? (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className="btn-primary w-full text-center block animate-fade-in-left"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={toggleMenu}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  <Link
+                    key={index}
+                    to={item.path}
+                    className={`block py-3 text-lg font-medium transition-colors duration-300 animate-fade-in-left ${
+                      location.pathname === item.path 
+                        ? 'text-[#094d88]' 
+                        : 'text-gray-700 hover:text-[#094d88]'
+                    }`}
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={toggleMenu}
+                  >
+                    {item.title}
+                  </Link>
+                )
+              ))}
+            </div>
           </nav>
         </div>
+      </div>
+
+      {/* Mobile menu overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
+          onClick={toggleMenu}
+        />
       )}
     </header>
   );

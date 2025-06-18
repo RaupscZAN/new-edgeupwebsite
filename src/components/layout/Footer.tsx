@@ -7,9 +7,11 @@ import {
   Instagram, 
   Mail, 
   Phone, 
-  MapPin 
+  MapPin,
+  ArrowRight
 } from 'lucide-react';
 import { useCMS } from '../../context/CMSContext';
+import Logo from '../common/Logo';
 
 const Footer: React.FC = () => {
   const { siteSettings } = useCMS();
@@ -45,102 +47,153 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="bg-[#094d88] text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          <div className="lg:col-span-2">
-            <Link to="/" className="inline-block mb-6">
-              <div className="flex items-center">
-                {/* Use the logo directly without any filters for better appearance */}
-                <img 
-                  src={siteSettings?.logo || "https://edgeup.in/wp-content/uploads/2024/03/edgeup-logo.png"}
-                  alt={siteSettings?.siteName || "EdgeUp"}
-                  className="h-10"
-                />
-              </div>
-            </Link>
-            <p className="text-gray-300 mb-6 max-w-md">
-              India's first AI-driven learning companion tailored for institutions
-              preparing students for UPSC, state exams, and other competitive tests.
-            </p>
-            <div className="flex space-x-4">
-              {siteSettings?.contactInfo?.socialLinks?.linkedin && (
-                <a 
-                  href={siteSettings.contactInfo.socialLinks.linkedin} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  <Linkedin size={20} />
-                </a>
-              )}
-              {siteSettings?.contactInfo?.socialLinks?.twitter && (
-                <a 
-                  href={siteSettings.contactInfo.socialLinks.twitter} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  <Twitter size={20} />
-                </a>
-              )}
-              {siteSettings?.contactInfo?.socialLinks?.facebook && (
-                <a 
-                  href={siteSettings.contactInfo.socialLinks.facebook} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  <Facebook size={20} />
-                </a>
-              )}
-              {siteSettings?.contactInfo?.socialLinks?.instagram && (
-                <a 
-                  href={siteSettings.contactInfo.socialLinks.instagram} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white transition-colors"
-                >
-                  <Instagram size={20} />
-                </a>
-              )}
+    <footer className="bg-[#094d88] text-white relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+
+      <div className="container-custom relative z-10">
+        {/* Newsletter Section */}
+        <div className="py-12 border-b border-white/10">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div>
+              <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
+              <p className="text-white/80">Get the latest insights on AI-powered education and EdTech innovations.</p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent"
+              />
+              <button className="bg-[#10ac8b] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 group">
+                Subscribe
+                <ArrowRight className="ml-2 h-4 w-4 inline transition-transform group-hover:translate-x-1" />
+              </button>
             </div>
           </div>
-
-          {footerLinks.map((column, i) => (
-            <div key={i}>
-              <h3 className="text-lg font-semibold mb-4">{column.title}</h3>
-              <ul className="space-y-3">
-                {column.links.map((link, j) => (
-                  <li key={j}>
-                    <Link 
-                      to={link.href} 
-                      className="text-gray-300 hover:text-white transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
         </div>
 
-        <div className="border-t border-gray-700 mt-12 pt-8">
+        {/* Main Footer Content */}
+        <div className="py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            {/* Company Info */}
+            <div className="lg:col-span-2">
+              <Link to="/" className="inline-block mb-6">
+                <div className="filter brightness-0 invert">
+                  <Logo />
+                </div>
+              </Link>
+              <p className="text-white/80 mb-6 max-w-md leading-relaxed">
+                India's first AI-driven learning companion tailored for institutions
+                preparing students for UPSC, state exams, and other competitive tests.
+              </p>
+              
+              {/* Contact Info */}
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center text-white/80">
+                  <Mail className="h-4 w-4 mr-3 text-[#10ac8b]" />
+                  <a href={`mailto:${siteSettings?.contactInfo?.email}`} className="hover:text-white transition-colors">
+                    {siteSettings?.contactInfo?.email}
+                  </a>
+                </div>
+                <div className="flex items-center text-white/80">
+                  <Phone className="h-4 w-4 mr-3 text-[#10ac8b]" />
+                  <a href={`tel:${siteSettings?.contactInfo?.phone}`} className="hover:text-white transition-colors">
+                    {siteSettings?.contactInfo?.phone}
+                  </a>
+                </div>
+                <div className="flex items-start text-white/80">
+                  <MapPin className="h-4 w-4 mr-3 mt-1 text-[#10ac8b] flex-shrink-0" />
+                  <span className="text-sm">{siteSettings?.contactInfo?.address}</span>
+                </div>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex space-x-4">
+                {siteSettings?.contactInfo?.socialLinks?.linkedin && (
+                  <a 
+                    href={siteSettings.contactInfo.socialLinks.linkedin} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+                )}
+                {siteSettings?.contactInfo?.socialLinks?.twitter && (
+                  <a 
+                    href={siteSettings.contactInfo.socialLinks.twitter} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                  >
+                    <Twitter size={18} />
+                  </a>
+                )}
+                {siteSettings?.contactInfo?.socialLinks?.facebook && (
+                  <a 
+                    href={siteSettings.contactInfo.socialLinks.facebook} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                  >
+                    <Facebook size={18} />
+                  </a>
+                )}
+                {siteSettings?.contactInfo?.socialLinks?.instagram && (
+                  <a 
+                    href={siteSettings.contactInfo.socialLinks.instagram} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                  >
+                    <Instagram size={18} />
+                  </a>
+                )}
+              </div>
+            </div>
+
+            {/* Footer Links */}
+            {footerLinks.map((column, i) => (
+              <div key={i}>
+                <h3 className="text-lg font-semibold mb-4">{column.title}</h3>
+                <ul className="space-y-3">
+                  {column.links.map((link, j) => (
+                    <li key={j}>
+                      <Link 
+                        to={link.href} 
+                        className="footer-link text-sm hover:text-[#10ac8b] transition-colors duration-300"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/10 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="mb-4 md:mb-0">
-              <p className="text-gray-400 text-sm">
+              <p className="text-white/60 text-sm">
                 © {new Date().getFullYear()} EdgeUp Technologies. All rights reserved.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-400">
-              <Link to="/terms" className="hover:text-white transition-colors">
+            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-sm">
+              <Link to="/terms" className="footer-link hover:text-[#10ac8b] transition-colors duration-300">
                 Terms of Service
               </Link>
-              <Link to="/privacy-policy" className="hover:text-white transition-colors">
+              <Link to="/privacy-policy" className="footer-link hover:text-[#10ac8b] transition-colors duration-300">
                 Privacy Policy
               </Link>
-              <Link to="/cookie-policy" className="hover:text-white transition-colors">
+              <Link to="/cookie-policy" className="footer-link hover:text-[#10ac8b] transition-colors duration-300">
                 Cookie Policy
               </Link>
             </div>
