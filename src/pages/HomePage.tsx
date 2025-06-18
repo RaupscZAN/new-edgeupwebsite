@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
                 </div>
                 
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight relative z-30 animate-fade-in-up delay-200">
-                  AI-Powered Learning. Personalised for Learners.
+                  AI-Powered Learning. Built for Institutions. Personalised for Learners.
                 </h1>
                 
                 <p className="text-xl text-muted leading-relaxed animate-fade-in-up delay-300 relative z-30">

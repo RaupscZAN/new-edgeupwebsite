@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
   const { siteSettings } = useCMS();
   
   // Use the new EdgeUp logo
-  const logoUrl = "/Screenshot 2025-06-18 175418.png";
+  const logoUrl = "/edgeup-logo.png";
   const siteName = siteSettings?.siteName || "EdgeUp";
   
   return (
