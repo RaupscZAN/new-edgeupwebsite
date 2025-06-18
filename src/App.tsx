@@ -10,6 +10,7 @@ import ForInstitutionsPage from './pages/ForInstitutionsPage';
 import BookDemoPage from './pages/BookDemoPage';
 import AboutPage from './pages/AboutPage';
 import NewsPage from './pages/NewsPage';
+import NewsArticlePage from './pages/NewsArticlePage';
 import ContactPage from './pages/ContactPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -124,6 +125,13 @@ function App() {
                 <>
                   <Header />
                   <NewsPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/news/:id" element={
+                <>
+                  <Header />
+                  <NewsArticlePage />
                   <Footer />
                 </>
               } />

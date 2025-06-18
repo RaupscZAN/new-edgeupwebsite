@@ -347,38 +347,33 @@ const AboutPage: React.FC = () => {
             </div>
 
             <div className="max-w-6xl mx-auto">
-              {/* NEW TIMELINE LAYOUT - NO OVERLAPPING */}
-              <div className="space-y-12">
+              {/* COMPLETELY NEW TIMELINE LAYOUT - NO LINE ISSUES */}
+              <div className="space-y-16">
                 {milestones.map((milestone, index) => (
                   <div key={index} className="relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                      {/* Year and Timeline Dot */}
+                      {/* Year Column */}
                       <div className="lg:col-span-2 text-center lg:text-right">
-                        <div className="text-3xl font-bold text-[#10ac8b] mb-2">{milestone.year}</div>
-                        <div className="hidden lg:block w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full ml-auto border-4 border-white shadow-lg"></div>
+                        <div className="text-4xl font-bold text-[#10ac8b] mb-2">{milestone.year}</div>
                       </div>
 
-                      {/* Timeline Line */}
-                      <div className="lg:col-span-1 flex justify-center">
-                        <div className="w-1 h-24 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full hidden lg:block"></div>
-                        <div className="lg:hidden w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg mx-auto"></div>
+                      {/* Timeline Dot and Line */}
+                      <div className="lg:col-span-1 flex flex-col items-center">
+                        <div className="w-8 h-8 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg z-10"></div>
+                        {/* Connecting line to next milestone */}
+                        {index < milestones.length - 1 && (
+                          <div className="w-1 h-16 bg-gradient-to-b from-[#094d88] to-[#10ac8b] mt-4"></div>
+                        )}
                       </div>
 
                       {/* Content Card */}
                       <div className="lg:col-span-9">
                         <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
                           <h3 className="text-2xl font-semibold mb-3 text-gray-900">{milestone.title}</h3>
-                          <p className="text-gray-600 leading-relaxed">{milestone.description}</p>
+                          <p className="text-gray-600 leading-relaxed text-lg">{milestone.description}</p>
                         </div>
                       </div>
                     </div>
-
-                    {/* Mobile Timeline Line */}
-                    {index < milestones.length - 1 && (
-                      <div className="lg:hidden flex justify-center mt-6">
-                        <div className="w-1 h-12 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full"></div>
-                      </div>
-                    )}
                   </div>
                 ))}
               </div>
