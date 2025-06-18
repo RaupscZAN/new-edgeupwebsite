@@ -333,7 +333,7 @@ const AboutPage: React.FC = () => {
         </section>
       </IntersectionObserver>
 
-      {/* Journey Timeline - FIXED ALIGNMENT */}
+      {/* Journey Timeline - COMPLETELY FIXED */}
       <IntersectionObserver>
         <section className="section-padding relative z-10">
           <div className="container-custom">
@@ -346,26 +346,39 @@ const AboutPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="relative">
-                {/* Timeline line - FIXED */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full" style={{ height: 'calc(100% - 3rem)', top: '1.5rem' }}></div>
-                
+            <div className="max-w-6xl mx-auto">
+              {/* NEW TIMELINE LAYOUT - NO OVERLAPPING */}
+              <div className="space-y-12">
                 {milestones.map((milestone, index) => (
-                  <div key={index} className={`relative flex items-center mb-16 animate-fade-in-up`} style={{ animationDelay: `${index * 0.2}s` }}>
-                    {/* Timeline dot - FIXED POSITIONING */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg z-20"></div>
-                    
-                    {/* Content cards - FIXED SPACING */}
-                    <div className={`w-full ${index % 2 === 0 ? 'pr-1/2 pr-8' : 'pl-1/2 pl-8'}`}>
-                      <div className={`bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
-                        <div className={`${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
-                          <div className="text-[#10ac8b] font-bold text-xl mb-2">{milestone.year}</div>
-                          <h3 className="text-xl font-semibold mb-3 text-gray-900">{milestone.title}</h3>
-                          <p className="text-gray-600">{milestone.description}</p>
+                  <div key={index} className="relative animate-fade-in-up" style={{ animationDelay: `${index * 0.2}s` }}>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                      {/* Year and Timeline Dot */}
+                      <div className="lg:col-span-2 text-center lg:text-right">
+                        <div className="text-3xl font-bold text-[#10ac8b] mb-2">{milestone.year}</div>
+                        <div className="hidden lg:block w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full ml-auto border-4 border-white shadow-lg"></div>
+                      </div>
+
+                      {/* Timeline Line */}
+                      <div className="lg:col-span-1 flex justify-center">
+                        <div className="w-1 h-24 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full hidden lg:block"></div>
+                        <div className="lg:hidden w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg mx-auto"></div>
+                      </div>
+
+                      {/* Content Card */}
+                      <div className="lg:col-span-9">
+                        <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                          <h3 className="text-2xl font-semibold mb-3 text-gray-900">{milestone.title}</h3>
+                          <p className="text-gray-600 leading-relaxed">{milestone.description}</p>
                         </div>
                       </div>
                     </div>
+
+                    {/* Mobile Timeline Line */}
+                    {index < milestones.length - 1 && (
+                      <div className="lg:hidden flex justify-center mt-6">
+                        <div className="w-1 h-12 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full"></div>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
