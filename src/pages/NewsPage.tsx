@@ -167,13 +167,16 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
                       <p className="text-xl text-gray-600 leading-relaxed">{item.summary}</p>
                     </div>
 
-                    <button className="group relative overflow-hidden bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                    <Link
+                      to={`/news/${item.id}`}
+                      className="group relative overflow-hidden bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 inline-flex items-center"
+                    >
                       <span className="relative z-10 flex items-center">
                         Read Full Article
                         <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
                       </span>
                       <div className="absolute inset-0 bg-gradient-to-r from-[#10ac8b] to-[#094d88] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    </button>
+                    </Link>
                   </div>
 
                   <div className="relative group">
@@ -252,10 +255,13 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
                     </h3>
                     <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">{item.summary}</p>
                     
-                    <button className="inline-flex items-center text-[#094d88] font-semibold hover:text-[#10ac8b] transition-all duration-300 group-hover:translate-x-2">
+                    <Link
+                      to={`/news/${item.id}`}
+                      className="inline-flex items-center text-[#094d88] font-semibold hover:text-[#10ac8b] transition-all duration-300 group-hover:translate-x-2"
+                    >
                       Read more
                       <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
-                    </button>
+                    </Link>
                   </div>
 
                   {/* Hover Glow Effect */}
@@ -373,13 +379,19 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
                       title: 'Follow Us',
                       content: (
                         <div className="flex space-x-4">
-                          {['Li', 'Tw', 'Ig'].map((social, i) => (
+                          {[
+                            { name: 'LinkedIn', url: 'https://www.linkedin.com/company/edgeup-zan/' },
+                            { name: 'Instagram', url: 'https://www.instagram.com/edgeup_zan/' },
+                            { name: 'Twitter', url: '#' }
+                          ].map((social, i) => (
                             <a 
                               key={i}
-                              href="#" 
+                              href={social.url} 
+                              target="_blank"
+                              rel="noopener noreferrer"
                               className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-[#094d88] hover:text-white transition-all duration-300 hover:scale-110 border border-white/30"
                             >
-                              <span className="font-bold">{social}</span>
+                              <span className="font-bold text-xs">{social.name.slice(0, 2)}</span>
                             </a>
                           ))}
                         </div>

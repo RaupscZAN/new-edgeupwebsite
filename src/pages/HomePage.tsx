@@ -100,15 +100,21 @@ const HomePage: React.FC = () => {
   }, [testimonials.length]);
 
   return (
-    <main className="pt-16 overflow-hidden">
-      {/* Hero Section - Gridly Style */}
-      <section className="min-h-screen bg-gradient-light relative">
-        {/* Floating particles */}
-        <div className="particles">
+    <main className="pt-16 overflow-hidden relative">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-teal-50"></div>
+        
+        {/* Static Gradient Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+
+        {/* Floating Particles */}
+        <div className="particles-container">
           {[...Array(20)].map((_, i) => (
             <div
               key={i}
-              className="particle animate-float"
+              className="particle-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -118,22 +124,25 @@ const HomePage: React.FC = () => {
             />
           ))}
         </div>
+      </div>
 
-        <div className="container-custom relative z-10">
+      {/* Hero Section - Gridly Style */}
+      <section className="min-h-screen relative z-10">
+        <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
             {/* Left side - Content */}
             <div className="space-y-8 relative z-20">
               <div className="space-y-6">
-                <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium animate-fade-in-up">
+                <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-[#094d88] text-sm font-medium border border-white/30 shadow-lg animate-fade-in-up">
                   <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
                   Your Path to Digital Success
                 </div>
                 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight relative z-30 animate-fade-in-up delay-200">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] bg-clip-text text-transparent leading-tight relative z-30 animate-fade-in-up delay-200">
                   AI-Powered Learning. Built for Institutions. Personalised for Learners.
                 </h1>
                 
-                <p className="text-xl text-muted leading-relaxed animate-fade-in-up delay-300 relative z-30">
+                <p className="text-xl text-gray-600 leading-relaxed animate-fade-in-up delay-300 relative z-30">
                   EdgeUp functions as an embedded study companion, enabling partners to offer adaptive learning journeys, smart content delivery, contextual nudges, and real-time learner support powered by proprietary AI models.
                 </p>
               </div>
@@ -141,32 +150,36 @@ const HomePage: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500 relative z-30">
                 <Link
                   to="/book-demo"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 group"
+                  className="group relative overflow-hidden bg-gradient-to-r from-[#10ac8b] to-[#0d9488] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
                 >
-                  Book a Demo
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span className="relative z-10 flex items-center justify-center">
+                    Book a Demo
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
+                  </span>
                 </Link>
                 <Link
                   to="/product"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#094d88] text-[#094d88] font-semibold rounded-lg hover:bg-[#094d88] hover:text-white transition-all duration-300 hover:scale-105 group"
+                  className="group relative overflow-hidden border-2 border-[#094d88] text-[#094d88] px-8 py-4 rounded-2xl font-semibold hover:bg-[#094d88] hover:text-white transition-all duration-500 hover:scale-105"
                 >
-                  <Play className="mr-2 h-4 w-4" />
-                  Discover Now
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span className="relative z-10 flex items-center justify-center">
+                    <Play className="mr-2 h-4 w-4" />
+                    Discover Now
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-2" />
+                  </span>
                 </Link>
               </div>
 
               {/* Stats Cards */}
               <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700 relative z-30">
                 {stats.slice(0, 2).map((stat, index) => (
-                  <div key={index} className="stat-card hover-lift">
+                  <div key={index} className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
                     <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg mb-3 mx-auto">
                       <stat.icon className="h-6 w-6 text-white" />
                     </div>
-                    <div className="text-2xl font-bold text-[#094d88] mb-1">
+                    <div className="text-2xl font-bold text-[#094d88] mb-1 text-center">
                       <AnimatedCounter end={stat.number} suffix={stat.suffix} />
                     </div>
-                    <div className="text-sm text-muted">{stat.label}</div>
+                    <div className="text-sm text-gray-600 text-center">{stat.label}</div>
                   </div>
                 ))}
               </div>
@@ -174,7 +187,7 @@ const HomePage: React.FC = () => {
 
             {/* Right side - Dashboard Mockup */}
             <div className="relative animate-fade-in-right delay-400 z-10">
-              <div className="relative bg-white rounded-2xl shadow-2xl p-6 hover-lift">
+              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20 hover:shadow-3xl transition-all duration-700 hover:scale-105">
                 {/* Dashboard Header */}
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center space-x-3">
@@ -192,14 +205,14 @@ const HomePage: React.FC = () => {
                 <div className="space-y-4">
                   {/* Progress Cards */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-blue-light p-4 rounded-lg">
+                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
                       <div className="text-sm text-gray-600 mb-1">Active Students</div>
                       <div className="text-2xl font-bold text-[#094d88]">
                         <AnimatedCounter end={1248} />
                       </div>
                       <div className="text-xs text-green-600">+12% this month</div>
                     </div>
-                    <div className="bg-gradient-teal-light p-4 rounded-lg">
+                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
                       <div className="text-sm text-gray-600 mb-1">Completion Rate</div>
                       <div className="text-2xl font-bold text-[#10ac8b]">
                         <AnimatedCounter end={87} suffix="%" />
@@ -209,7 +222,7 @@ const HomePage: React.FC = () => {
                   </div>
 
                   {/* Chart Mockup */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
+                  <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
                     <div className="text-sm font-medium text-gray-700 mb-3">Learning Progress</div>
                     <div className="flex items-end space-x-2 h-20">
                       {[40, 65, 45, 80, 60, 90, 75].map((height, index) => (
@@ -251,8 +264,8 @@ const HomePage: React.FC = () => {
               </div>
 
               {/* Floating elements */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b] to-[#094d88] rounded-full opacity-20 animate-float"></div>
-              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b]/30 to-[#094d88]/30 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88]/30 to-[#10ac8b]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
@@ -260,60 +273,27 @@ const HomePage: React.FC = () => {
 
       {/* Stats Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-white">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
             <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">Trusted by Leading Institutions</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-6">
+                Trusted by Leading Institutions
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Our AI-powered platform delivers measurable results for educational institutions across India.
               </p>
             </div>
 
-            <div className="stats-grid">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
-                <div key={index} className="stat-card hover-lift animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div key={index} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-4 text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl mb-4 mx-auto">
                     <stat.icon className="h-8 w-8 text-white" />
                   </div>
                   <div className="text-3xl font-bold text-[#094d88] mb-2">
                     <AnimatedCounter end={stat.number} suffix={stat.suffix} />
                   </div>
-                  <div className="text-muted">{stat.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </IntersectionObserver>
-
-      {/* PASCO Framework Section */}
-      <IntersectionObserver>
-        <section className="section-padding bg-gradient-blue-light">
-          <div className="container-custom">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center px-4 py-2 bg-white/50 rounded-full text-[#094d88] text-sm font-medium mb-6">
-                PASCO Framework
-              </div>
-              <h2 className="heading-lg mb-4">Our Proprietary AI Framework</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
-                PASCO is EdgeUp's proprietary AI-powered framework designed to personalize and optimize learning journeys across age groups.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
-              {[
-                { letter: 'P', word: 'Personality', description: 'Understanding learning style and cognitive preferences', icon: Brain },
-                { letter: 'A', word: 'Aptitude', description: 'Measuring natural abilities and potential', icon: Target },
-                { letter: 'S', word: 'Skills', description: 'Assessing current capabilities and competencies', icon: Zap },
-                { letter: 'C', word: 'Character', description: 'Evaluating motivation and learning behavior', icon: Users },
-                { letter: 'O', word: 'Observation', description: 'Continuous monitoring and adaptation', icon: TrendingUp }
-              ].map((item, index) => (
-                <div key={index} className="feature-card text-center hover-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-white">{item.letter}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">{item.word}</h3>
-                  <p className="text-sm text-muted">{item.description}</p>
+                  <div className="text-gray-600">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -323,23 +303,25 @@ const HomePage: React.FC = () => {
 
       {/* Features Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-white">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
             <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">Transform Learning with AI-Powered Precision</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-6">
+                Transform Learning with AI-Powered Precision
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Our platform helps institutions prepare students for UPSC, state exams, and other competitive tests with personalized learning experiences.
               </p>
             </div>
 
-            <div className="feature-grid">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {features.map((feature, index) => (
-                <div key={index} className="feature-card hover-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                <div key={index} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-4 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
                   <div className="w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center mb-4">
                     <feature.icon className="h-6 w-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                  <p className="text-muted">{feature.description}</p>
+                  <h3 className="text-xl font-semibold mb-3 text-gray-900">{feature.title}</h3>
+                  <p className="text-gray-600">{feature.description}</p>
                 </div>
               ))}
             </div>
@@ -349,17 +331,19 @@ const HomePage: React.FC = () => {
 
       {/* Testimonials Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-teal-light">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
             <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">What Our Partners Say</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-6">
+                What Our Partners Say
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 See how institutions across India are transforming education with EdgeUp.
               </p>
             </div>
 
             <div className="max-w-4xl mx-auto">
-              <div className="testimonial-card hover-lift animate-scale-in">
+              <div className="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-500 hover:scale-105 animate-scale-in">
                 <div className="flex flex-col md:flex-row items-center gap-8">
                   <div className="flex-shrink-0">
                     <img 
@@ -379,7 +363,7 @@ const HomePage: React.FC = () => {
                     </blockquote>
                     <div>
                       <div className="font-semibold text-gray-900">{testimonials[currentTestimonial].name}</div>
-                      <div className="text-muted">{testimonials[currentTestimonial].position}, {testimonials[currentTestimonial].institution}</div>
+                      <div className="text-gray-600">{testimonials[currentTestimonial].position}, {testimonials[currentTestimonial].institution}</div>
                     </div>
                   </div>
                 </div>
@@ -406,40 +390,74 @@ const HomePage: React.FC = () => {
 
       {/* CTA Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0" style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            }}></div>
-          </div>
-
-          <div className="container-custom relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="heading-lg mb-6 text-white animate-fade-in-up">
-                Ready to Transform Education at Your Institution?
-              </h2>
-              <p className="text-xl text-white/90 mb-10 animate-fade-in-up delay-200">
-                Join the growing network of forward-thinking institutions using EdgeUp to deliver personalized learning experiences.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
-                <Link
-                  to="/book-demo"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-                >
-                  Book a Demo Today
-                </Link>
-                <Link
-                  to="/for-institutions"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
-                >
-                  Learn More
-                </Link>
+        <section className="section-padding relative z-10">
+          <div className="container-custom">
+            <div className="relative bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-black/20"></div>
+              
+              {/* Animated Background Elements */}
+              <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-10 right-10 w-16 h-16 bg-white/10 rounded-full animate-pulse delay-1000"></div>
+                <div className="absolute top-1/2 left-1/4 w-12 h-12 bg-white/10 rounded-full animate-pulse delay-500"></div>
+              </div>
+              
+              <div className="relative z-10 text-center max-w-4xl mx-auto py-20 px-8">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 animate-fade-in-up">
+                  Ready to Transform Education at Your Institution?
+                </h2>
+                <p className="text-xl text-white/90 mb-12 animate-fade-in-up delay-200">
+                  Join the growing network of forward-thinking institutions using EdgeUp to deliver personalized learning experiences.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up delay-400">
+                  <Link
+                    to="/book-demo"
+                    className="group relative overflow-hidden bg-white text-[#094d88] px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                  >
+                    <span className="relative z-10 flex items-center justify-center">
+                      Book a Demo Today
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
+                    </span>
+                  </Link>
+                  <Link
+                    to="/for-institutions"
+                    className="group border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-[#094d88] transition-all duration-500 hover:scale-105"
+                  >
+                    Learn More
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </IntersectionObserver>
+
+      <style jsx>{`
+        .particle-float {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background: linear-gradient(45deg, #094d88, #10ac8b);
+          border-radius: 50%;
+          animation: float 20s ease-in-out infinite;
+          opacity: 0.6;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          25% { transform: translateY(-20px) rotate(90deg); }
+          50% { transform: translateY(-40px) rotate(180deg); }
+          75% { transform: translateY(-20px) rotate(270deg); }
+        }
+
+        .particles-container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          pointer-events: none;
+        }
+      `}</style>
     </main>
   );
 };
