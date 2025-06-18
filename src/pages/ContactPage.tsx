@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Mail, Phone, MapPin, Calendar, ExternalLink, CheckCircle, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, CheckCircle, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { useCMS } from '../context/CMSContext';
 import IntersectionObserver from '../components/common/IntersectionObserver';
 
@@ -20,17 +20,19 @@ const ContactPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [error, setError] = useState('');
+  const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   
   const { siteSettings, addFormSubmission } = useCMS();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    document.title = "Contact EdgeUp - Book a Demo";
+    document.title = "Contact EdgeUp - Get in Touch";
     
     if (isDemo) {
       setFormData(prev => ({
         ...prev,
-        message: "I would like to schedule a demo of the EdgeUp platform for my institution."
+        message: "I would like to schedule a demo of the EdgeUp platform for my institution.",
+        role: 'institution'
       }));
     }
   }, [isDemo]);
@@ -100,10 +102,14 @@ const ContactPage: React.FC = () => {
     }
   ];
 
+  const toggleFaq = (index: number) => {
+    setExpandedFaq(expandedFaq === index ? null : index);
+  };
+
   return (
     <main className="pt-16 overflow-hidden">
       {/* Hero Section */}
-      <section className="section-padding bg-gradient-to-r from-gray-50 to-blue-50 relative">
+      <section className="section-padding bg-gradient-light relative">
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight animate-fade-in-up">
@@ -117,7 +123,7 @@ const ContactPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact Form & Info - Matching Reference Design */}
+      {/* Contact Form & Info Section */}
       <IntersectionObserver>
         <section className="section-padding bg-white">
           <div className="container-custom">
@@ -132,10 +138,10 @@ const ContactPage: React.FC = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Email Us</h3>
                       <a 
-                        href={`mailto:${siteSettings?.contactInfo?.email || 'info@edgeup.in'}`} 
+                        href="mailto:info@edgeup.in" 
                         className="text-white/90 hover:text-white transition-colors"
                       >
-                        {siteSettings?.contactInfo?.email || 'info@edgeup.in'}
+                        info@edgeup.in
                       </a>
                     </div>
                   </div>
@@ -145,10 +151,10 @@ const ContactPage: React.FC = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Call Us</h3>
                       <a 
-                        href={`tel:${siteSettings?.contactInfo?.phone || '044 4500 2700'}`} 
+                        href="tel:044 4500 2700" 
                         className="text-white/90 hover:text-white transition-colors"
                       >
-                        {siteSettings?.contactInfo?.phone || '044 4500 2700'}
+                        044 4500 2700
                       </a>
                     </div>
                   </div>
@@ -158,7 +164,7 @@ const ContactPage: React.FC = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Visit Us</h3>
                       <address className="not-italic text-white/90">
-                        {siteSettings?.contactInfo?.address || 'No 14, Tank Bund Rd, Lake Area, Nungambakkam, Chennai, Tamil Nadu 600032'}
+                        No 14, Tank Bund Rd, Lake Area, Nungambakkam, Chennai, Tamil Nadu 600032
                       </address>
                     </div>
                   </div>
@@ -313,9 +319,10 @@ const ContactPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center px-6 py-3 bg-[#094d88] text-white font-semibold rounded-lg hover:bg-[#073a6b] transition-all duration-300 hover:scale-105"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#094d88] text-white font-semibold rounded-lg hover:bg-[#073a6b] transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {!isSubmitting && <ArrowRight className="ml-2 h-4 w-4" />}
                     </button>
                   </form>
                 )}
@@ -327,7 +334,7 @@ const ContactPage: React.FC = () => {
 
       {/* FAQ Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-to-r from-gray-50 to-blue-50">
+        <section className="section-padding bg-gradient-blue-light">
           <div className="container-custom">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
@@ -339,9 +346,23 @@ const ContactPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
-                    <p className="text-gray-600">{faq.answer}</p>
+                  <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <button
+                      onClick={() => toggleFaq(index)}
+                      className="w-full text-left p-6 font-semibold text-gray-900 hover:bg-gray-50 transition-colors duration-300 flex items-center justify-between"
+                    >
+                      <span className="text-lg">{faq.question}</span>
+                      {expandedFaq === index ? (
+                        <ChevronUp className="h-5 w-5 text-gray-500" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 text-gray-500" />
+                      )}
+                    </button>
+                    {expandedFaq === index && (
+                      <div className="px-6 pb-6 text-gray-600 transition-all duration-300">
+                        {faq.answer}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -352,7 +373,7 @@ const ContactPage: React.FC = () => {
 
       {/* CTA Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-[#10ac8b] text-white relative overflow-hidden">
+        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
           <div className="container-custom relative z-10">
             <div className="text-center max-w-4xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white animate-fade-in-up">
@@ -362,19 +383,19 @@ const ContactPage: React.FC = () => {
                 Join hundreds of institutions already transforming education with EdgeUp.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
-                <Link
-                  to="/for-institutions"
+                <a
+                  href="/for-institutions"
                   className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                 >
                   For Institutions
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-                <Link
-                  to="/product"
+                </a>
+                <a
+                  href="/product"
                   className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#10ac8b] transition-all duration-300 hover:scale-105"
                 >
                   Explore Product
-                </Link>
+                </a>
               </div>
             </div>
           </div>
