@@ -11,7 +11,6 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { useCMS } from '../../context/CMSContext';
-import Logo from '../common/Logo';
 
 const Footer: React.FC = () => {
   const { siteSettings } = useCMS();
@@ -80,17 +79,16 @@ const Footer: React.FC = () => {
         {/* Main Footer Content */}
         <div className="py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Company Info */}
+            {/* Company Info - FIXED: Removed Logo to eliminate white space */}
             <div className="lg:col-span-2">
-              <Link to="/" className="inline-block mb-6">
-                <div className="filter brightness-0 invert">
-                  <Logo />
-                </div>
-              </Link>
-              <p className="text-white/80 mb-6 max-w-md leading-relaxed">
-                India's first AI-driven learning companion tailored for institutions
-                preparing students for UPSC, state exams, and other competitive tests.
-              </p>
+              {/* REMOVED: Logo section that was causing white space */}
+              <div className="mb-6">
+                <h2 className="text-2xl font-bold text-white mb-4">EdgeUp</h2>
+                <p className="text-white/80 leading-relaxed">
+                  India's first AI-driven learning companion tailored for institutions
+                  preparing students for UPSC, state exams, and other competitive tests.
+                </p>
+              </div>
               
               {/* Contact Info */}
               <div className="space-y-3 mb-6">
