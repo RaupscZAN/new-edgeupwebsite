@@ -12,11 +12,11 @@ const Header: React.FC = () => {
 
   const navItems = [
     { title: 'Product', path: '/product' },
-    { title: 'For Institutions', path: '/institutions' },
+    { title: 'For Institutions', path: '/for-institutions' },
     { title: 'About Us', path: '/about' },
     { title: 'News', path: '/news' },
     { title: 'Contact', path: '/contact', isButton: false },
-    { title: 'Book a Demo', path: '/contact?demo=true', isButton: true }
+    { title: 'Book a Demo', path: '/book-demo', isButton: true }
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);

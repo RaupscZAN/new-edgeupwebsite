@@ -140,7 +140,7 @@ const HomePage: React.FC = () => {
 
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500 relative z-30">
                 <Link
-                  to="/contact?demo=true"
+                  to="/book-demo"
                   className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 group"
                 >
                   Book a Demo
@@ -424,13 +424,13 @@ const HomePage: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
                 <Link
-                  to="/contact?demo=true"
+                  to="/book-demo"
                   className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                 >
                   Book a Demo Today
                 </Link>
                 <Link
-                  to="/institutions"
+                  to="/for-institutions"
                   className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
                 >
                   Learn More
