@@ -96,64 +96,40 @@ const Footer: React.FC = () => {
               <div className="space-y-3 mb-6">
                 <div className="flex items-center text-white/80">
                   <Mail className="h-4 w-4 mr-3 text-[#10ac8b]" />
-                  <a href={`mailto:${siteSettings?.contactInfo?.email}`} className="hover:text-white transition-colors">
-                    {siteSettings?.contactInfo?.email}
+                  <a href="mailto:info@edgeup.in" className="hover:text-white transition-colors">
+                    info@edgeup.in
                   </a>
                 </div>
                 <div className="flex items-center text-white/80">
                   <Phone className="h-4 w-4 mr-3 text-[#10ac8b]" />
-                  <a href={`tel:${siteSettings?.contactInfo?.phone}`} className="hover:text-white transition-colors">
-                    {siteSettings?.contactInfo?.phone}
+                  <a href="tel:044 4500 2700" className="hover:text-white transition-colors">
+                    044 4500 2700
                   </a>
                 </div>
                 <div className="flex items-start text-white/80">
                   <MapPin className="h-4 w-4 mr-3 mt-1 text-[#10ac8b] flex-shrink-0" />
-                  <span className="text-sm">{siteSettings?.contactInfo?.address}</span>
+                  <span className="text-sm">No 14, Tank Bund Rd, Lake Area, Nungambakkam, Chennai, Tamil Nadu 600032</span>
                 </div>
               </div>
 
-              {/* Social Links */}
+              {/* Social Links - UPDATED */}
               <div className="flex space-x-4">
-                {siteSettings?.contactInfo?.socialLinks?.linkedin && (
-                  <a 
-                    href={siteSettings.contactInfo.socialLinks.linkedin} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
-                  >
-                    <Linkedin size={18} />
-                  </a>
-                )}
-                {siteSettings?.contactInfo?.socialLinks?.twitter && (
-                  <a 
-                    href={siteSettings.contactInfo.socialLinks.twitter} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
-                  >
-                    <Twitter size={18} />
-                  </a>
-                )}
-                {siteSettings?.contactInfo?.socialLinks?.facebook && (
-                  <a 
-                    href={siteSettings.contactInfo.socialLinks.facebook} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
-                  >
-                    <Facebook size={18} />
-                  </a>
-                )}
-                {siteSettings?.contactInfo?.socialLinks?.instagram && (
-                  <a 
-                    href={siteSettings.contactInfo.socialLinks.instagram} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
-                  >
-                    <Instagram size={18} />
-                  </a>
-                )}
+                <a 
+                  href="https://www.linkedin.com/company/edgeup" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                >
+                  <Linkedin size={18} />
+                </a>
+                <a 
+                  href="https://www.instagram.com/edgeup_tech/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center text-white/80 hover:text-white hover:bg-[#10ac8b] transition-all duration-300 hover:scale-110"
+                >
+                  <Instagram size={18} />
+                </a>
               </div>
             </div>
 

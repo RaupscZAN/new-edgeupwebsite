@@ -38,16 +38,16 @@ const AboutPage: React.FC = () => {
       position: "Chief Executive Officer",
       bio: "Former Head of AI at a leading EdTech company, Jubran brings deep expertise in machine learning and educational psychology.",
       image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWjE2Wy3ZAA_uaEXnz5pvYbmGpxVOhv2q3mg&s",
-      linkedin: "https://linkedin.com/in/jubran-siddique",
-      twitter: "https://twitter.com/jubransiddique"
+      linkedin: "https://www.linkedin.com/company/edgeup",
+      twitter: "https://www.instagram.com/edgeup_tech/"
     },
     {
       name: "Khalid Mohamed",
       position: "Chairman",
       bio: "With 20+ years in education technology, Khalid has helped scale multiple EdTech ventures across Asia.",
       image: "https://media.licdn.com/dms/image/v2/D5603AQFAafycikw0qg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1681290083962?e=1754524800&v=beta&t=mI399UEUgknOinTlsXcZYno3lrkaPnVu_mnh9Bi_D_8",
-      linkedin: "https://linkedin.com/in/khalid-mohamed",
-      twitter: "https://twitter.com/khalidmohamed"
+      linkedin: "https://www.linkedin.com/company/edgeup",
+      twitter: "https://www.instagram.com/edgeup_tech/"
     }
   ];
 
@@ -333,7 +333,7 @@ const AboutPage: React.FC = () => {
         </section>
       </IntersectionObserver>
 
-      {/* Journey Timeline - Gridly Style */}
+      {/* Journey Timeline - FIXED ALIGNMENT */}
       <IntersectionObserver>
         <section className="section-padding relative z-10">
           <div className="container-custom">
@@ -348,19 +348,22 @@ const AboutPage: React.FC = () => {
 
             <div className="max-w-4xl mx-auto">
               <div className="relative">
-                {/* Timeline line */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full"></div>
+                {/* Timeline line - FIXED */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-1 bg-gradient-to-b from-[#094d88] to-[#10ac8b] rounded-full" style={{ height: 'calc(100% - 3rem)', top: '1.5rem' }}></div>
                 
                 {milestones.map((milestone, index) => (
                   <div key={index} className={`relative flex items-center mb-16 animate-fade-in-up`} style={{ animationDelay: `${index * 0.2}s` }}>
-                    {/* Timeline dot */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg z-10"></div>
+                    {/* Timeline dot - FIXED POSITIONING */}
+                    <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full border-4 border-white shadow-lg z-20"></div>
                     
-                    <div className={`flex-1 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 ml-auto'}`}>
-                      <div className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
-                        <div className="text-[#10ac8b] font-bold text-xl mb-2">{milestone.year}</div>
-                        <h3 className="text-xl font-semibold mb-3 text-gray-900">{milestone.title}</h3>
-                        <p className="text-gray-600">{milestone.description}</p>
+                    {/* Content cards - FIXED SPACING */}
+                    <div className={`w-full ${index % 2 === 0 ? 'pr-1/2 pr-8' : 'pl-1/2 pl-8'}`}>
+                      <div className={`bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 ${index % 2 === 0 ? 'mr-8' : 'ml-8'}`}>
+                        <div className={`${index % 2 === 0 ? 'text-right' : 'text-left'}`}>
+                          <div className="text-[#10ac8b] font-bold text-xl mb-2">{milestone.year}</div>
+                          <h3 className="text-xl font-semibold mb-3 text-gray-900">{milestone.title}</h3>
+                          <p className="text-gray-600">{milestone.description}</p>
+                        </div>
                       </div>
                     </div>
                   </div>

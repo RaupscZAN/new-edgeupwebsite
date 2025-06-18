@@ -15,10 +15,10 @@ const siteSettings: SiteSettings = {
     phone: "044 4500 2700",
     address: "No 14, Tank Bund Rd, Lake Area, Nungambakkam, Chennai, Tamil Nadu 600032",
     socialLinks: {
-      linkedin: "https://www.linkedin.com/company/edgeup-zan/",
+      linkedin: "https://www.linkedin.com/company/edgeup",
       twitter: "",
       facebook: "",
-      instagram: "https://www.instagram.com/edgeup_zan/"
+      instagram: "https://www.instagram.com/edgeup_tech/"
     }
   },
   seoDefaults: {
