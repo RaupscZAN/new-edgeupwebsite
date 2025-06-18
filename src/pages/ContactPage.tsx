@@ -102,88 +102,70 @@ const ContactPage: React.FC = () => {
 
   return (
     <main className="pt-16 overflow-hidden">
-      {/* Hero Section - Gridly Style */}
-      <section className="section-padding bg-gradient-light relative">
+      {/* Hero Section */}
+      <section className="section-padding bg-gradient-to-r from-gray-50 to-blue-50 relative">
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium mb-6 animate-fade-in-up">
-              <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
-              {isDemo ? 'Schedule a Demo' : 'Get in Touch'}
-            </div>
-            
-            <h1 className="heading-xl animate-fade-in-up delay-200">
-              {isDemo ? 'Book a Demo' : 'Contact Us'}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight animate-fade-in-up">
+              Get in Touch
             </h1>
             
-            <p className="text-xl text-muted mt-6 animate-fade-in-up delay-300">
-              {isDemo 
-                ? 'Experience the power of AI-driven personalization for your educational institution.' 
-                : "Have questions or want to learn more about EdgeUp? We are here to help."}
+            <p className="text-xl text-gray-600 mt-6 animate-fade-in-up delay-300">
+              Have questions or want to learn more about EdgeUp? We are here to help.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Form & Info - Gridly Style */}
+      {/* Contact Form & Info - Matching Reference Design */}
       <IntersectionObserver>
         <section className="section-padding bg-white">
           <div className="container-custom">
-            <div className="grid lg:grid-cols-2 gap-12">
-              {/* Contact Information */}
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <h2 className="heading-md">Contact Information</h2>
-                  <p className="text-xl text-muted">
-                    Ready to transform education at your institution? Let's discuss how EdgeUp can help.
-                  </p>
-                </div>
-
-                <div className="space-y-6">
+            <div className="grid lg:grid-cols-2 gap-0 max-w-6xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+              {/* Contact Information - Blue Sidebar */}
+              <div className="bg-[#094d88] text-white p-8">
+                <h2 className="text-2xl font-bold mb-8">Contact Information</h2>
+                
+                <div className="space-y-8">
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-white" />
-                    </div>
+                    <Mail className="h-6 w-6 text-white mt-1" />
                     <div>
                       <h3 className="font-semibold mb-1">Email Us</h3>
                       <a 
-                        href={`mailto:${siteSettings?.contactInfo?.email}`} 
-                        className="text-[#094d88] hover:text-[#10ac8b] transition-colors"
+                        href={`mailto:${siteSettings?.contactInfo?.email || 'info@edgeup.in'}`} 
+                        className="text-white/90 hover:text-white transition-colors"
                       >
-                        {siteSettings?.contactInfo?.email}
+                        {siteSettings?.contactInfo?.email || 'info@edgeup.in'}
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-white" />
-                    </div>
+                    <Phone className="h-6 w-6 text-white mt-1" />
                     <div>
                       <h3 className="font-semibold mb-1">Call Us</h3>
                       <a 
-                        href={`tel:${siteSettings?.contactInfo?.phone}`} 
-                        className="text-[#094d88] hover:text-[#10ac8b] transition-colors"
+                        href={`tel:${siteSettings?.contactInfo?.phone || '044 4500 2700'}`} 
+                        className="text-white/90 hover:text-white transition-colors"
                       >
-                        {siteSettings?.contactInfo?.phone}
+                        {siteSettings?.contactInfo?.phone || '044 4500 2700'}
                       </a>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
+                    <MapPin className="h-6 w-6 text-white mt-1" />
                     <div>
                       <h3 className="font-semibold mb-1">Visit Us</h3>
-                      <address className="not-italic text-muted">
-                        {siteSettings?.contactInfo?.address}
+                      <address className="not-italic text-white/90">
+                        {siteSettings?.contactInfo?.address || 'No 14, Tank Bund Rd, Lake Area, Nungambakkam, Chennai, Tamil Nadu 600032'}
                       </address>
                     </div>
                   </div>
                 </div>
 
                 {/* Map */}
-                <div className="bg-gray-100 rounded-xl overflow-hidden h-64">
+                <div className="mt-8 bg-gray-100 rounded-xl overflow-hidden h-64">
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8290740215574!2d80.24673147573892!3d13.0603399902862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267376515b75f%3A0x4afd61c7c0de4f78!2sEdgeUp!5e0!3m2!1sen!2sin!4v1710850058953!5m2!1sen!2sin"
                     width="100%"
@@ -195,31 +177,10 @@ const ContactPage: React.FC = () => {
                     className="rounded-xl"
                   ></iframe>
                 </div>
-
-                {isDemo && (
-                  <div className="bg-gradient-blue-light p-6 rounded-xl">
-                    <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Calendar size={20} className="mr-2 text-[#094d88]" />
-                      Prefer to schedule directly?
-                    </h3>
-                    <p className="text-muted mb-4">
-                      Book a time that works best for you using our calendar system.
-                    </p>
-                    <a 
-                      href="https://calendly.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center text-[#094d88] font-medium hover:text-[#10ac8b] transition-colors"
-                    >
-                      Book on Calendly
-                      <ExternalLink size={16} className="ml-2" />
-                    </a>
-                  </div>
-                )}
               </div>
 
-              {/* Contact Form */}
-              <div className="contact-form">
+              {/* Contact Form - White Section */}
+              <div className="bg-white p-8">
                 {submitSuccess ? (
                   <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
@@ -227,13 +188,13 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <h3 className="text-2xl font-semibold text-gray-900 mb-2">Thank You!</h3>
-                      <p className="text-muted mb-6">
+                      <p className="text-gray-600 mb-6">
                         Your message has been received. We will get back to you shortly.
                       </p>
                     </div>
                     <button
                       onClick={() => setSubmitSuccess(false)}
-                      className="btn-primary"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105"
                     >
                       Send Another Message
                     </button>
@@ -241,13 +202,11 @@ const ContactPage: React.FC = () => {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                      <h2 className="heading-md mb-6">
-                        {isDemo ? 'Request a Demo' : 'Send Us a Message'}
-                      </h2>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
                     </div>
                     
                     {error && (
-                      <div className="alert-error">
+                      <div className="bg-red-50 border border-red-200 text-red-700 p-3 rounded">
                         {error}
                       </div>
                     )}
@@ -264,7 +223,7 @@ const ContactPage: React.FC = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="form-input"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                           placeholder="Enter your full name"
                         />
                       </div>
@@ -280,7 +239,7 @@ const ContactPage: React.FC = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="form-input"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                           placeholder="Enter your email"
                         />
                       </div>
@@ -295,7 +254,7 @@ const ContactPage: React.FC = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="form-input"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                           placeholder="Enter your phone number"
                         />
                       </div>
@@ -311,7 +270,7 @@ const ContactPage: React.FC = () => {
                           value={formData.institution}
                           onChange={handleInputChange}
                           required
-                          className="form-input"
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                           placeholder="Enter your institution name"
                         />
                       </div>
@@ -327,7 +286,7 @@ const ContactPage: React.FC = () => {
                         value={formData.role}
                         onChange={handleInputChange}
                         required
-                        className="form-input"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                       >
                         <option value="individual">An Individual Learner</option>
                         <option value="institution">An Institution</option>
@@ -346,7 +305,7 @@ const ContactPage: React.FC = () => {
                         onChange={handleInputChange}
                         rows={5}
                         required
-                        className="form-input"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#10ac8b] focus:border-transparent transition-all duration-300"
                         placeholder="Tell us about your requirements..."
                       />
                     </div>
@@ -354,10 +313,9 @@ const ContactPage: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="btn-primary w-full group"
+                      className="inline-flex items-center justify-center px-6 py-3 bg-[#094d88] text-white font-semibold rounded-lg hover:bg-[#073a6b] transition-all duration-300 hover:scale-105"
                     >
-                      {isSubmitting ? 'Sending...' : isDemo ? 'Request Demo' : 'Send Message'}
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
                   </form>
                 )}
@@ -367,13 +325,13 @@ const ContactPage: React.FC = () => {
         </section>
       </IntersectionObserver>
 
-      {/* FAQ Section - Gridly Style */}
+      {/* FAQ Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-blue-light">
+        <section className="section-padding bg-gradient-to-r from-gray-50 to-blue-50">
           <div className="container-custom">
             <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">Frequently Asked Questions</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Get answers to common questions about EdgeUp and our implementation process.
               </p>
             </div>
@@ -381,11 +339,9 @@ const ContactPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {faqs.map((faq, index) => (
-                  <div key={index} className="faq-item animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className="p-6">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
-                      <p className="text-muted">{faq.answer}</p>
-                    </div>
+                  <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                    <p className="text-gray-600">{faq.answer}</p>
                   </div>
                 ))}
               </div>
@@ -396,10 +352,10 @@ const ContactPage: React.FC = () => {
 
       {/* CTA Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
+        <section className="section-padding bg-[#10ac8b] text-white relative overflow-hidden">
           <div className="container-custom relative z-10">
             <div className="text-center max-w-4xl mx-auto">
-              <h2 className="heading-lg mb-6 text-white animate-fade-in-up">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white animate-fade-in-up">
                 Ready to Get Started?
               </h2>
               <p className="text-xl text-white/90 mb-10 animate-fade-in-up delay-200">
@@ -407,15 +363,15 @@ const ContactPage: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
                 <Link
-                  to="/institutions"
-                  className="bg-white text-[#094d88] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                  to="/for-institutions"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
                 >
                   For Institutions
-                  <ArrowRight className="ml-2 h-5 w-5 inline transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
                 <Link
                   to="/product"
-                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#10ac8b] transition-all duration-300 hover:scale-105"
                 >
                   Explore Product
                 </Link>
