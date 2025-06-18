@@ -251,7 +251,7 @@ const ForInstitutionsPage: React.FC = () => {
         </section>
       </IntersectionObserver>
 
-      {/* Implementation Process */}
+      {/* Implementation Process - FIXED HORIZONTAL LINES */}
       <IntersectionObserver>
         <section className="section-padding bg-white">
           <div className="container-custom">
@@ -262,22 +262,31 @@ const ForInstitutionsPage: React.FC = () => {
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                {implementationSteps.map((step, index) => (
-                  <div key={index} className="text-center animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                    <div className="relative mb-6">
-                      <div className="w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto transition-transform duration-300 hover:scale-110">
-                        {step.step}
+            <div className="max-w-6xl mx-auto">
+              {/* COMPLETELY FIXED HORIZONTAL TIMELINE */}
+              <div className="relative">
+                {/* Continuous horizontal line connecting all circles */}
+                <div className="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88]" style={{ 
+                  left: 'calc(12.5% + 2rem)', 
+                  right: 'calc(12.5% + 2rem)' 
+                }}></div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                  {implementationSteps.map((step, index) => (
+                    <div key={index} className="text-center animate-fade-in-up relative" style={{ animationDelay: `${index * 0.1}s` }}>
+                      {/* Step Circle */}
+                      <div className="relative mb-6">
+                        <div className="w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto transition-transform duration-300 hover:scale-110 relative z-10 border-4 border-white shadow-lg">
+                          {step.step}
+                        </div>
                       </div>
-                      {index < implementationSteps.length - 1 && (
-                        <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-[#10ac8b] to-[#094d88] transform -translate-x-8"></div>
-                      )}
+                      
+                      {/* Content */}
+                      <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
+                      <p className="text-gray-600 text-sm">{step.description}</p>
                     </div>
-                    <h3 className="text-lg font-semibold mb-2">{step.title}</h3>
-                    <p className="text-gray-600 text-sm">{step.description}</p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>

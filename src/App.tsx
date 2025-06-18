@@ -11,6 +11,10 @@ import BookDemoPage from './pages/BookDemoPage';
 import AboutPage from './pages/AboutPage';
 import NewsPage from './pages/NewsPage';
 import NewsArticlePage from './pages/NewsArticlePage';
+import BlogPage from './pages/BlogPage';
+import CaseStudiesPage from './pages/CaseStudiesPage';
+import MediaKitPage from './pages/MediaKitPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ContactPage from './pages/ContactPage';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminLogin from './pages/admin/AdminLogin';
@@ -132,6 +136,34 @@ function App() {
                 <>
                   <Header />
                   <NewsArticlePage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/blog" element={
+                <>
+                  <Header />
+                  <BlogPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/case-studies" element={
+                <>
+                  <Header />
+                  <CaseStudiesPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/media-kit" element={
+                <>
+                  <Header />
+                  <MediaKitPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/privacy-policy" element={
+                <>
+                  <Header />
+                  <PrivacyPolicyPage />
                   <Footer />
                 </>
               } />
