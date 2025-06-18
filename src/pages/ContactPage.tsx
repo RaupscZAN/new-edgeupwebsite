@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Mail, Phone, MapPin, Calendar, ExternalLink } from 'lucide-react';
+import { Mail, Phone, MapPin, Calendar, ExternalLink, CheckCircle, ArrowRight } from 'lucide-react';
 import { useCMS } from '../context/CMSContext';
+import IntersectionObserver from '../components/common/IntersectionObserver';
 
 type EnquirerRole = 'individual' | 'institution' | 'partner';
 
@@ -64,19 +65,6 @@ const ContactPage: React.FC = () => {
         role: formData.role
       });
 
-      // Send email notification
-      const emailEndpoint = '/functions/v1/send-notification';
-      await fetch(emailEndpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          recipients: ['info@edgeup.in', 'jubran@edgeup.in', 'arvind.p.cbe@gmail.com']
-        })
-      });
-      
       setSubmitSuccess(true);
       setFormData({
         name: '',
@@ -93,94 +81,135 @@ const ContactPage: React.FC = () => {
     }
   };
 
+  const faqs = [
+    {
+      question: "How quickly can we implement EdgeUp?",
+      answer: "Most institutions can be fully onboarded within 2-4 weeks, depending on the scale of implementation and existing systems integration."
+    },
+    {
+      question: "Does EdgeUp integrate with our existing LMS?",
+      answer: "Yes, EdgeUp is designed to integrate seamlessly with most popular LMS platforms, including Moodle, Canvas, and custom solutions."
+    },
+    {
+      question: "How is EdgeUp priced?",
+      answer: "We offer flexible pricing models based on institution size and feature requirements. Contact us for a custom quote tailored to your needs."
+    },
+    {
+      question: "Is training provided for our staff?",
+      answer: "Absolutely. We provide comprehensive training for faculty and staff as part of our implementation process, ensuring everyone can maximize the platform's potential."
+    }
+  ];
+
   return (
-    <main className="pt-16 md:pt-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#094d88] mb-4">
-              {isDemo ? 'Book a Demo' : 'Get in Touch'}
+    <main className="pt-16 overflow-hidden">
+      {/* Hero Section - Gridly Style */}
+      <section className="section-padding bg-gradient-light relative">
+        <div className="container-custom">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium mb-6 animate-fade-in-up">
+              <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
+              {isDemo ? 'Schedule a Demo' : 'Get in Touch'}
+            </div>
+            
+            <h1 className="heading-xl animate-fade-in-up delay-200">
+              {isDemo ? 'Book a Demo' : 'Contact Us'}
             </h1>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            
+            <p className="text-xl text-muted mt-6 animate-fade-in-up delay-300">
               {isDemo 
                 ? 'Experience the power of AI-driven personalization for your educational institution.' 
                 : "Have questions or want to learn more about EdgeUp? We are here to help."}
             </p>
           </div>
-          
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
-            <div className="grid grid-cols-1 md:grid-cols-2">
-              <div className="bg-[#094d88] text-white p-8 md:p-12">
-                <h2 className="text-2xl font-semibold mb-6">Contact Information</h2>
-                
+        </div>
+      </section>
+
+      {/* Contact Form & Info - Gridly Style */}
+      <IntersectionObserver>
+        <section className="section-padding bg-white">
+          <div className="container-custom">
+            <div className="grid lg:grid-cols-2 gap-12">
+              {/* Contact Information */}
+              <div className="space-y-8">
                 <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
-                      <Mail size={20} />
+                  <h2 className="heading-md">Contact Information</h2>
+                  <p className="text-xl text-muted">
+                    Ready to transform education at your institution? Let's discuss how EdgeUp can help.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
+                      <Mail className="h-6 w-6 text-white" />
                     </div>
-                    <div className="ml-4">
-                      <p className="font-medium">Email Us</p>
+                    <div>
+                      <h3 className="font-semibold mb-1">Email Us</h3>
                       <a 
                         href={`mailto:${siteSettings?.contactInfo?.email}`} 
-                        className="text-blue-200 hover:text-white transition-colors"
+                        className="text-[#094d88] hover:text-[#10ac8b] transition-colors"
                       >
                         {siteSettings?.contactInfo?.email}
                       </a>
                     </div>
                   </div>
-                  
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
-                      <Phone size={20} />
+
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
+                      <Phone className="h-6 w-6 text-white" />
                     </div>
-                    <div className="ml-4">
-                      <p className="font-medium">Call Us</p>
+                    <div>
+                      <h3 className="font-semibold mb-1">Call Us</h3>
                       <a 
                         href={`tel:${siteSettings?.contactInfo?.phone}`} 
-                        className="text-blue-200 hover:text-white transition-colors"
+                        className="text-[#094d88] hover:text-[#10ac8b] transition-colors"
                       >
                         {siteSettings?.contactInfo?.phone}
                       </a>
                     </div>
                   </div>
-                  
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 mt-1">
-                      <MapPin size={20} />
+
+                  <div className="flex items-start space-x-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg flex items-center justify-center">
+                      <MapPin className="h-6 w-6 text-white" />
                     </div>
-                    <div className="ml-4">
-                      <p className="font-medium">Visit Us</p>
-                      <address className="not-italic text-blue-200">
+                    <div>
+                      <h3 className="font-semibold mb-1">Visit Us</h3>
+                      <address className="not-italic text-muted">
                         {siteSettings?.contactInfo?.address}
                       </address>
                     </div>
                   </div>
-
-                  {/* Google Maps Integration */}
-                  <div className="mt-6">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8290740215574!2d80.24673147573892!3d13.0603399902862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267376515b75f%3A0x4afd61c7c0de4f78!2sEdgeUp!5e0!3m2!1sen!2sin!4v1710850058953!5m2!1sen!2sin"
-                      width="100%"
-                      height="200"
-                      style={{ border: 0 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
                 </div>
-                
+
+                {/* Map */}
+                <div className="bg-gray-100 rounded-xl overflow-hidden h-64">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.8290740215574!2d80.24673147573892!3d13.0603399902862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5267376515b75f%3A0x4afd61c7c0de4f78!2sEdgeUp!5e0!3m2!1sen!2sin!4v1710850058953!5m2!1sen!2sin"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-xl"
+                  ></iframe>
+                </div>
+
                 {isDemo && (
-                  <div className="mt-10 pt-10 border-t border-blue-700">
+                  <div className="bg-gradient-blue-light p-6 rounded-xl">
                     <h3 className="text-xl font-semibold mb-4 flex items-center">
-                      <Calendar size={20} className="mr-2" />
+                      <Calendar size={20} className="mr-2 text-[#094d88]" />
                       Prefer to schedule directly?
                     </h3>
+                    <p className="text-muted mb-4">
+                      Book a time that works best for you using our calendar system.
+                    </p>
                     <a 
                       href="https://calendly.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 border border-white text-sm font-medium rounded-md text-white hover:bg-white/10 transition-colors"
+                      className="inline-flex items-center text-[#094d88] font-medium hover:text-[#10ac8b] transition-colors"
                     >
                       Book on Calendly
                       <ExternalLink size={16} className="ml-2" />
@@ -188,41 +217,44 @@ const ContactPage: React.FC = () => {
                   </div>
                 )}
               </div>
-              
-              <div className="p-8 md:p-12">
+
+              {/* Contact Form */}
+              <div className="contact-form">
                 {submitSuccess ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                      <svg className="w-8 h-8 text-green-500\" fill="none\" stroke="currentColor\" viewBox="0 0 24 24">
-                        <path strokeLinecap="round\" strokeLinejoin="round\" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
+                  <div className="h-full flex flex-col items-center justify-center text-center space-y-6">
+                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                      <CheckCircle className="w-8 h-8 text-green-500" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">Thank You!</h3>
-                    <p className="text-gray-600 mb-6">
-                      Your message has been received. We will get back to you shortly.
-                    </p>
+                    <div>
+                      <h3 className="text-2xl font-semibold text-gray-900 mb-2">Thank You!</h3>
+                      <p className="text-muted mb-6">
+                        Your message has been received. We will get back to you shortly.
+                      </p>
+                    </div>
                     <button
                       onClick={() => setSubmitSuccess(false)}
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-800 hover:bg-blue-700"
+                      className="btn-primary"
                     >
                       Send Another Message
                     </button>
                   </div>
                 ) : (
-                  <form onSubmit={handleSubmit}>
-                    <h2 className="text-2xl font-semibold text-gray-900 mb-6">
-                      {isDemo ? 'Request a Demo' : 'Send Us a Message'}
-                    </h2>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                      <h2 className="heading-md mb-6">
+                        {isDemo ? 'Request a Demo' : 'Send Us a Message'}
+                      </h2>
+                    </div>
                     
                     {error && (
-                      <div className="mb-6 bg-red-50 border border-red-200 text-red-700 p-3 rounded">
+                      <div className="alert-error">
                         {error}
                       </div>
                     )}
                     
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
                           Full Name <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -232,12 +264,13 @@ const ContactPage: React.FC = () => {
                           value={formData.name}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          className="form-input"
+                          placeholder="Enter your full name"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                           Email <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -247,12 +280,13 @@ const ContactPage: React.FC = () => {
                           value={formData.email}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          className="form-input"
+                          placeholder="Enter your email"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
                           Phone Number
                         </label>
                         <input
@@ -261,12 +295,13 @@ const ContactPage: React.FC = () => {
                           name="phone"
                           value={formData.phone}
                           onChange={handleInputChange}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          className="form-input"
+                          placeholder="Enter your phone number"
                         />
                       </div>
                       
                       <div>
-                        <label htmlFor="institution" className="block text-sm font-medium text-gray-700 mb-1">
+                        <label htmlFor="institution" className="block text-sm font-medium text-gray-700 mb-2">
                           Institution <span className="text-red-500">*</span>
                         </label>
                         <input
@@ -276,13 +311,14 @@ const ContactPage: React.FC = () => {
                           value={formData.institution}
                           onChange={handleInputChange}
                           required
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                          className="form-input"
+                          placeholder="Enter your institution name"
                         />
                       </div>
                     </div>
 
-                    <div className="mb-6">
-                      <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
+                    <div>
+                      <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-2">
                         I am <span className="text-red-500">*</span>
                       </label>
                       <select
@@ -291,7 +327,7 @@ const ContactPage: React.FC = () => {
                         value={formData.role}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="form-input"
                       >
                         <option value="individual">An Individual Learner</option>
                         <option value="institution">An Institution</option>
@@ -299,8 +335,8 @@ const ContactPage: React.FC = () => {
                       </select>
                     </div>
                     
-                    <div className="mb-6">
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
                         Message <span className="text-red-500">*</span>
                       </label>
                       <textarea
@@ -308,60 +344,86 @@ const ContactPage: React.FC = () => {
                         name="message"
                         value={formData.message}
                         onChange={handleInputChange}
-                        rows={4}
+                        rows={5}
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                        className="form-input"
+                        placeholder="Tell us about your requirements..."
                       />
                     </div>
                     
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full md:w-auto px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-800 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-300"
+                      className="btn-primary w-full group"
                     >
                       {isSubmitting ? 'Sending...' : isDemo ? 'Request Demo' : 'Send Message'}
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                     </button>
                   </form>
                 )}
               </div>
             </div>
           </div>
-          
-          <div className="mt-16">
-            <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">Frequently Asked Questions</h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">How quickly can we implement EdgeUp?</h3>
-                <p className="text-gray-600">
-                  Most institutions can be fully onboarded within 2-4 weeks, depending on the scale of implementation and existing systems integration.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Does EdgeUp integrate with our existing LMS?</h3>
-                <p className="text-gray-600">
-                  Yes, EdgeUp is designed to integrate seamlessly with most popular LMS platforms, including Moodle, Canvas, and custom solutions.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">How is EdgeUp priced?</h3>
-                <p className="text-gray-600">
-                  We offer flexible pricing models based on institution size and feature requirements. Contact us for a custom quote tailored to your needs.
-                </p>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Is training provided for our staff?</h3>
-                <p className="text-gray-600">
-                  Absolutely. We provide comprehensive training for faculty and staff as part of our implementation process, ensuring everyone can maximize the platform's potential.
-                </p>
+        </section>
+      </IntersectionObserver>
+
+      {/* FAQ Section - Gridly Style */}
+      <IntersectionObserver>
+        <section className="section-padding bg-gradient-blue-light">
+          <div className="container-custom">
+            <div className="text-center mb-16">
+              <h2 className="heading-lg mb-4">Frequently Asked Questions</h2>
+              <p className="text-xl text-muted max-w-3xl mx-auto">
+                Get answers to common questions about EdgeUp and our implementation process.
+              </p>
+            </div>
+
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {faqs.map((faq, index) => (
+                  <div key={index} className="faq-item animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div className="p-6">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                      <p className="text-muted">{faq.answer}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </IntersectionObserver>
+
+      {/* CTA Section */}
+      <IntersectionObserver>
+        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
+          <div className="container-custom relative z-10">
+            <div className="text-center max-w-4xl mx-auto">
+              <h2 className="heading-lg mb-6 text-white animate-fade-in-up">
+                Ready to Get Started?
+              </h2>
+              <p className="text-xl text-white/90 mb-10 animate-fade-in-up delay-200">
+                Join hundreds of institutions already transforming education with EdgeUp.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
+                <Link
+                  to="/institutions"
+                  className="bg-white text-[#094d88] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                >
+                  For Institutions
+                  <ArrowRight className="ml-2 h-5 w-5 inline transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  to="/product"
+                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
+                >
+                  Explore Product
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </IntersectionObserver>
     </main>
   );
 };
