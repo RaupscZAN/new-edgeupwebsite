@@ -21,7 +21,6 @@ const ContactPage: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [error, setError] = useState('');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   
   const { siteSettings, addFormSubmission } = useCMS();
@@ -38,13 +37,6 @@ const ContactPage: React.FC = () => {
         role: 'institution'
       }));
     }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isDemo]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -121,30 +113,16 @@ const ContactPage: React.FC = () => {
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-teal-50"></div>
         
-        {/* Dynamic Gradient Orbs */}
-        <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"
-          style={{
-            left: mousePosition.x / 10,
-            top: mousePosition.y / 10,
-            transition: 'all 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-          style={{
-            right: mousePosition.x / 15,
-            bottom: mousePosition.y / 15,
-            transition: 'all 0.5s ease-out'
-          }}
-        />
+        {/* Static Gradient Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
 
         {/* Floating Particles */}
         <div className="particles-container">
           {[...Array(25)].map((_, i) => (
             <div
               key={i}
-              className="particle-magnetic"
+              className="particle-float"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -202,7 +180,7 @@ const ContactPage: React.FC = () => {
                     ].map((item, index) => (
                       <div 
                         key={index}
-                        className={`group magnetic-card flex items-start space-x-4 p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 animate-fade-in-up cursor-pointer`}
+                        className={`group flex items-start space-x-4 p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 animate-fade-in-up cursor-pointer`}
                         style={{ animationDelay: `${index * 200}ms` }}
                       >
                         <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
@@ -509,17 +487,17 @@ const ContactPage: React.FC = () => {
       </IntersectionObserver>
 
       <style jsx>{`
-        .particle-magnetic {
+        .particle-float {
           position: absolute;
           width: 6px;
           height: 6px;
           background: linear-gradient(45deg, #094d88, #10ac8b);
           border-radius: 50%;
-          animation: magneticFloat 25s ease-in-out infinite;
+          animation: float 25s ease-in-out infinite;
           opacity: 0.4;
         }
 
-        @keyframes magneticFloat {
+        @keyframes float {
           0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
           25% { transform: translateY(-30px) translateX(20px) rotate(90deg); }
           50% { transform: translateY(-60px) translateX(-20px) rotate(180deg); }
@@ -532,15 +510,6 @@ const ContactPage: React.FC = () => {
           height: 100%;
           overflow: hidden;
           pointer-events: none;
-        }
-
-        .magnetic-card {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .magnetic-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .floating-label-group {

@@ -5,20 +5,12 @@ import IntersectionObserver from '../components/common/IntersectionObserver';
 import { useCMS } from '../context/CMSContext';
 
 const NewsPage: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "EdgeUp News & Media";
     setIsLoaded(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const { getContentBlocks } = useCMS();
@@ -119,23 +111,9 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
           ))}
         </div>
 
-        {/* Dynamic Gradient Orbs */}
-        <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"
-          style={{
-            left: mousePosition.x / 10,
-            top: mousePosition.y / 10,
-            transition: 'all 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-          style={{
-            right: mousePosition.x / 15,
-            bottom: mousePosition.y / 15,
-            transition: 'all 0.5s ease-out'
-          }}
-        />
+        {/* Static Gradient Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
       </div>
 
       {/* Hero Section - Enhanced */}

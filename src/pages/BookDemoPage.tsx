@@ -19,7 +19,6 @@ const BookDemoPage: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [error, setError] = useState('');
   const [currentStep, setCurrentStep] = useState(1);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isLoaded, setIsLoaded] = useState(false);
   
   const { siteSettings, addFormSubmission } = useCMS();
@@ -28,13 +27,6 @@ const BookDemoPage: React.FC = () => {
     window.scrollTo(0, 0);
     document.title = "Book a Demo - EdgeUp AI Learning Platform";
     setIsLoaded(true);
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -96,23 +88,9 @@ const BookDemoPage: React.FC = () => {
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-teal-50"></div>
         
-        {/* Dynamic Gradient Orbs */}
-        <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"
-          style={{
-            left: mousePosition.x / 8,
-            top: mousePosition.y / 8,
-            transition: 'all 0.3s ease-out'
-          }}
-        />
-        <div 
-          className="absolute w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-          style={{
-            right: mousePosition.x / 12,
-            bottom: mousePosition.y / 12,
-            transition: 'all 0.5s ease-out'
-          }}
-        />
+        {/* Static Gradient Orbs */}
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
 
         {/* Floating Geometric Shapes */}
         <div className="geometric-shapes">
