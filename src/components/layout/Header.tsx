@@ -12,11 +12,11 @@ const Header: React.FC = () => {
 
   const navItems = [
     { title: 'Product', path: '/product' },
-    { title: 'For Institutions', path: '/institutions' },
+    { title: 'For Institutions', path: '/for-institutions' },
     { title: 'About Us', path: '/about' },
     { title: 'News', path: '/news' },
     { title: 'Contact', path: '/contact', isButton: false },
-    { title: 'Book a Demo', path: '/contact?demo=true', isButton: true }
+    { title: 'Book a Demo', path: '/book-demo', isButton: true }
   ];
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -42,8 +42,8 @@ const Header: React.FC = () => {
     <header 
       className={`fixed w-full z-50 transition-all duration-500 ease-out ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-medium shadow-lg py-2' 
-          : 'bg-white/90 backdrop-blur-light py-4'
+          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
+          : 'bg-white/90 backdrop-blur-sm py-4'
       } animate-slide-in-top`}
     >
       <div className="container-custom">
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className="btn-primary ripple magnetic hover-glow animate-fade-in-up"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 animate-fade-in-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   {item.title}
@@ -69,8 +69,8 @@ const Header: React.FC = () => {
                 <Link
                   key={index}
                   to={item.path}
-                  className={`nav-link animate-fade-in-up ${
-                    location.pathname === item.path ? 'active' : ''
+                  className={`text-gray-700 hover:text-[#094d88] transition-colors duration-300 font-medium animate-fade-in-up ${
+                    location.pathname === item.path ? 'text-[#094d88]' : ''
                   }`}
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -81,7 +81,7 @@ const Header: React.FC = () => {
           </nav>
 
           <button
-            className="lg:hidden text-gray-900 focus:outline-none magnetic hover-scale"
+            className="lg:hidden text-gray-900 focus:outline-none transition-transform duration-300 hover:scale-110"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
@@ -95,13 +95,13 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mobile Menu */}
-      <div className={`mobile-menu ${isOpen ? 'open' : 'closed'}`}>
+      <div className={`lg:hidden fixed inset-0 z-50 bg-white transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
           <div className="flex justify-between items-center p-6 border-b border-gray-100">
             <Logo />
             <button
               onClick={toggleMenu}
-              className="text-gray-900 hover-scale"
+              className="text-gray-900 transition-transform duration-300 hover:scale-110"
             >
               <X className="h-6 w-6" />
             </button>
@@ -114,7 +114,7 @@ const Header: React.FC = () => {
                   <Link
                     key={index}
                     to={item.path}
-                    className="btn-primary w-full text-center block animate-fade-in-left"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 w-full text-center block animate-fade-in-left"
                     style={{ animationDelay: `${index * 0.1}s` }}
                     onClick={toggleMenu}
                   >

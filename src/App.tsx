@@ -6,6 +6,8 @@ import Footer from './components/layout/Footer';
 import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import InstitutionsPage from './pages/InstitutionsPage';
+import ForInstitutionsPage from './pages/ForInstitutionsPage';
+import BookDemoPage from './pages/BookDemoPage';
 import AboutPage from './pages/AboutPage';
 import NewsPage from './pages/NewsPage';
 import ContactPage from './pages/ContactPage';
@@ -94,6 +96,20 @@ function App() {
                 <>
                   <Header />
                   <InstitutionsPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/for-institutions" element={
+                <>
+                  <Header />
+                  <ForInstitutionsPage />
+                  <Footer />
+                </>
+              } />
+              <Route path="/book-demo" element={
+                <>
+                  <Header />
+                  <BookDemoPage />
                   <Footer />
                 </>
               } />
