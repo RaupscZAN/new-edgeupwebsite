@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Brain, 
@@ -11,13 +11,22 @@ import {
   Eye,
   Shield,
   ArrowRight,
-  Play
+  Play,
+  Layers,
+  BarChart,
+  Award,
+  Globe,
+  Star,
+  Sparkles
 } from 'lucide-react';
 import { useCMS } from '../context/CMSContext';
 import IntersectionObserver from '../components/common/IntersectionObserver';
 import AnimatedCounter from '../components/common/AnimatedCounter';
 
 const ProductPage: React.FC = () => {
+  const [activeFeature, setActiveFeature] = useState(0);
+  const [currentDemo, setCurrentDemo] = useState(0);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "EdgeUp Product - AI-Powered Learning Platform";
@@ -30,217 +39,438 @@ const ProductPage: React.FC = () => {
     { 
       letter: 'P', 
       word: 'Personality', 
-      description: 'Understanding learning style and cognitive preferences',
+      description: 'Understanding learning style and cognitive preferences through advanced psychometric analysis',
       icon: Brain,
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-blue-500 to-blue-600',
+      stats: { value: 95, label: 'Accuracy Rate' }
     },
     { 
       letter: 'A', 
       word: 'Aptitude', 
-      description: 'Measuring natural abilities and potential',
+      description: 'Measuring natural abilities and potential using AI-powered assessments',
       icon: Target,
-      color: 'from-purple-500 to-purple-600'
+      color: 'from-purple-500 to-purple-600',
+      stats: { value: 87, label: 'Prediction Accuracy' }
     },
     { 
       letter: 'S', 
       word: 'Skills', 
-      description: 'Assessing current capabilities and competencies',
+      description: 'Assessing current capabilities and competencies with real-time evaluation',
       icon: Zap,
-      color: 'from-yellow-500 to-orange-500'
+      color: 'from-yellow-500 to-orange-500',
+      stats: { value: 92, label: 'Skill Mapping' }
     },
     { 
       letter: 'C', 
       word: 'Character', 
-      description: 'Evaluating motivation and learning behavior',
+      description: 'Evaluating motivation and learning behavior patterns for optimal engagement',
       icon: Shield,
-      color: 'from-green-500 to-green-600'
+      color: 'from-green-500 to-green-600',
+      stats: { value: 89, label: 'Behavioral Analysis' }
     },
     { 
       letter: 'O', 
       word: 'Observation', 
-      description: 'Continuous monitoring and adaptation',
+      description: 'Continuous monitoring and adaptation based on learning progress',
       icon: Eye,
-      color: 'from-teal-500 to-cyan-500'
+      color: 'from-teal-500 to-cyan-500',
+      stats: { value: 98, label: 'Real-time Tracking' }
     }
   ];
 
-  const benefits = [
+  const productFeatures = [
     {
-      title: 'Personalized Paths',
-      description: 'Creates unique learning journeys based on individual profiles',
+      title: 'Adaptive Learning Engine',
+      description: 'AI-powered system that continuously adapts to each student\'s learning pace and style',
       icon: Brain,
-      stats: { value: 85, label: 'Improvement in engagement' }
+      image: 'https://images.pexels.com/photos/5940721/pexels-photo-5940721.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      benefits: ['Personalized content delivery', 'Dynamic difficulty adjustment', 'Learning path optimization']
     },
     {
-      title: 'Adaptive Learning',
-      description: 'Continuously evolves with student progress',
+      title: 'Smart Assessment Platform',
+      description: 'Advanced testing system with real-time analytics and performance insights',
       icon: Target,
-      stats: { value: 92, label: 'Accuracy in assessment' }
+      image: 'https://images.pexels.com/photos/4778611/pexels-photo-4778611.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      benefits: ['Adaptive question selection', 'Instant feedback', 'Performance analytics']
     },
     {
-      title: 'Real-time Insights',
-      description: 'Provides actionable feedback for improvement',
-      icon: TrendingUp,
-      stats: { value: 78, label: 'Faster outcomes' }
+      title: 'Institutional Dashboard',
+      description: 'Comprehensive analytics and management tools for educational institutions',
+      icon: BarChart,
+      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600',
+      benefits: ['Student progress tracking', 'Faculty insights', 'Performance reports']
     }
   ];
 
-  const slmFeatures = [
+  const demoScreenshots = [
     {
-      title: 'Prescribed Textbooks',
-      description: 'Curated content from standard educational materials',
-      icon: '📚'
+      title: 'Student Dashboard',
+      description: 'Personalized learning interface with progress tracking',
+      image: 'https://images.pexels.com/photos/5940721/pexels-photo-5940721.jpeg?auto=compress&cs=tinysrgb&w=1600'
     },
     {
-      title: 'Reading Materials',
-      description: 'Supplementary content for deeper understanding',
-      icon: '📖'
+      title: 'Assessment Engine',
+      description: 'Adaptive testing with real-time difficulty adjustment',
+      image: 'https://images.pexels.com/photos/4778611/pexels-photo-4778611.jpeg?auto=compress&cs=tinysrgb&w=1600'
     },
     {
-      title: 'Educational Videos',
-      description: 'Visual learning resources for better comprehension',
-      icon: '🎥'
-    },
-    {
-      title: 'Faculty & Student Notes',
-      description: 'Collaborative learning materials from educators and peers',
-      icon: '📝'
+      title: 'Analytics Dashboard',
+      description: 'Comprehensive insights and performance analytics',
+      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600'
     }
   ];
+
+  const stats = [
+    { number: 95, suffix: '%', label: 'Learning Efficiency', icon: TrendingUp },
+    { number: 150, suffix: '+', label: 'Partner Institutions', icon: Users },
+    { number: 50000, suffix: '+', label: 'Students Impacted', icon: Globe },
+    { number: 98, suffix: '%', label: 'Satisfaction Rate', icon: Award }
+  ];
+
+  // Auto-rotate features
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveFeature((prev) => (prev + 1) % productFeatures.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [productFeatures.length]);
+
+  // Auto-rotate demo screenshots
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentDemo((prev) => (prev + 1) % demoScreenshots.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [demoScreenshots.length]);
 
   return (
     <main className="pt-16 overflow-hidden">
-      {/* Hero Section */}
-      <section className="section-padding bg-[#094d88] text-white relative">
-        <div className="container-custom">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 bg-white/10 rounded-full text-white text-sm font-medium mb-6 animate-fade-in-up">
-              <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
-              Embedded Study Companion
-            </div>
-            
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight animate-fade-in-up delay-200">
-              Intelligent Learning, Powered by AI
-            </h1>
-            
-            <p className="text-xl text-white/90 mt-6 animate-fade-in-up delay-300">
-              Rather than being a standalone app, EdgeUp functions as an embedded study companion, enabling partners to offer adaptive learning journeys, smart content delivery, contextual nudges, and real-time learner support.
-            </p>
+      {/* Hero Section - Interactive */}
+      <section className="min-h-screen bg-gradient-light relative">
+        {/* Floating particles */}
+        <div className="particles">
+          {[...Array(25)].map((_, i) => (
+            <div
+              key={i}
+              className="particle animate-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 8}s`,
+                animationDuration: `${8 + Math.random() * 4}s`
+              }}
+            />
+          ))}
+        </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8 animate-fade-in-up delay-500">
-              <Link
-                to="/contact?demo=true"
-                className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
-              >
-                Book a Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-              <Link
-                to="/institutions"
-                className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
-              >
-                For Institutions
-                <ExternalLink className="ml-2 h-4 w-4" />
-              </Link>
+        <div className="container-custom relative z-10">
+          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+            {/* Left side - Content */}
+            <div className="space-y-8 relative z-20">
+              <div className="space-y-6">
+                <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium animate-fade-in-up">
+                  <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
+                  Embedded Study Companion
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight relative z-30 animate-fade-in-up delay-200">
+                  Intelligent Learning, Powered by AI
+                </h1>
+                
+                <p className="text-xl text-muted leading-relaxed animate-fade-in-up delay-300 relative z-30">
+                  Rather than being a standalone app, EdgeUp functions as an embedded study companion, enabling partners to offer adaptive learning journeys, smart content delivery, contextual nudges, and real-time learner support.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500 relative z-30">
+                <Link
+                  to="/book-demo"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#10ac8b] text-white font-semibold rounded-lg hover:bg-[#0d9488] transition-all duration-300 hover:scale-105 group"
+                >
+                  <Play className="mr-2 h-4 w-4" />
+                  Watch Demo
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                  to="/for-institutions"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#094d88] text-[#094d88] font-semibold rounded-lg hover:bg-[#094d88] hover:text-white transition-all duration-300 hover:scale-105 group"
+                >
+                  For Institutions
+                  <ExternalLink className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700 relative z-30">
+                {stats.slice(0, 2).map((stat, index) => (
+                  <div key={index} className="stat-card hover-lift">
+                    <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg mb-3 mx-auto">
+                      <stat.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-2xl font-bold text-[#094d88] mb-1">
+                      <AnimatedCounter end={stat.number} suffix={stat.suffix} />
+                    </div>
+                    <div className="text-sm text-muted">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Right side - Interactive Demo */}
+            <div className="relative animate-fade-in-right delay-400 z-10">
+              <div className="relative bg-white rounded-2xl shadow-2xl overflow-hidden hover-lift">
+                {/* Demo Header */}
+                <div className="flex items-center justify-between p-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
+                      <Brain className="h-5 w-5" />
+                    </div>
+                    <span className="font-semibold">EdgeUp AI Platform</span>
+                  </div>
+                  <div className="flex space-x-2">
+                    <div className="w-3 h-3 bg-white/30 rounded-full"></div>
+                    <div className="w-3 h-3 bg-white/30 rounded-full"></div>
+                    <div className="w-3 h-3 bg-white rounded-full"></div>
+                  </div>
+                </div>
+
+                {/* Demo Content */}
+                <div className="p-6 space-y-6">
+                  {/* Current Demo Screenshot */}
+                  <div className="relative rounded-lg overflow-hidden">
+                    <img
+                      src={demoScreenshots[currentDemo].image}
+                      alt={demoScreenshots[currentDemo].title}
+                      className="w-full h-48 object-cover transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
+                      <div className="text-white">
+                        <h4 className="font-semibold">{demoScreenshots[currentDemo].title}</h4>
+                        <p className="text-sm text-white/90">{demoScreenshots[currentDemo].description}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Demo Navigation */}
+                  <div className="flex justify-center space-x-2">
+                    {demoScreenshots.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentDemo(index)}
+                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                          index === currentDemo 
+                            ? 'bg-[#10ac8b] scale-125' 
+                            : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Live Stats */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="bg-gradient-blue-light p-4 rounded-lg">
+                      <div className="text-sm text-gray-600 mb-1">Active Learners</div>
+                      <div className="text-2xl font-bold text-[#094d88]">
+                        <AnimatedCounter end={2847} />
+                      </div>
+                      <div className="text-xs text-green-600">+18% this week</div>
+                    </div>
+                    <div className="bg-gradient-teal-light p-4 rounded-lg">
+                      <div className="text-sm text-gray-600 mb-1">Success Rate</div>
+                      <div className="text-2xl font-bold text-[#10ac8b]">
+                        <AnimatedCounter end={94} suffix="%" />
+                      </div>
+                      <div className="text-xs text-green-600">+7% improvement</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating elements */}
+              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b] to-[#094d88] rounded-full opacity-20 animate-float"></div>
+              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full opacity-20 animate-float" style={{ animationDelay: '2s' }}></div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* PASCO Framework Section */}
+      {/* Stats Section */}
       <IntersectionObserver>
         <section className="section-padding bg-white">
           <div className="container-custom">
             <div className="text-center mb-16">
-              <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium mb-6">
+              <h2 className="heading-lg mb-4">Proven Results Across Institutions</h2>
+              <p className="text-xl text-muted max-w-3xl mx-auto">
+                Our AI-powered platform delivers measurable improvements in learning outcomes.
+              </p>
+            </div>
+
+            <div className="stats-grid">
+              {stats.map((stat, index) => (
+                <div key={index} className="stat-card hover-lift animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl mb-4 mx-auto">
+                    <stat.icon className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-[#094d88] mb-2">
+                    <AnimatedCounter end={stat.number} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-muted">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </IntersectionObserver>
+
+      {/* PASCO Framework Section - Interactive */}
+      <IntersectionObserver>
+        <section className="section-padding bg-gradient-blue-light">
+          <div className="container-custom">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-4 py-2 bg-white/50 rounded-full text-[#094d88] text-sm font-medium mb-6">
+                <Brain className="w-4 h-4 mr-2" />
                 PASCO Framework
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Proprietary AI Framework</h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <h2 className="heading-lg mb-4">Our Proprietary AI Framework</h2>
+              <p className="text-xl text-muted max-w-3xl mx-auto">
                 PASCO is EdgeUp's proprietary AI-powered framework designed to personalize and optimize learning journeys across age groups, by mapping and evolving student learning paths based on holistic learner profiling.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-16">
               {pascoFramework.map((item, index) => (
-                <div key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 text-center hover:shadow-lg transition-all duration-300 hover:-translate-y-2 animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="w-16 h-16 bg-[#094d88] rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                <div 
+                  key={index} 
+                  className="feature-card text-center hover-lift animate-fade-in-up group cursor-pointer" 
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                  onMouseEnter={() => setActiveFeature(index)}
+                >
+                  <div className="w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <span className="text-2xl font-bold text-white">{item.letter}</span>
                   </div>
                   <h3 className="text-lg font-semibold mb-2">{item.word}</h3>
-                  <p className="text-sm text-gray-600">{item.description}</p>
+                  <p className="text-sm text-muted mb-3">{item.description}</p>
+                  <div className="text-center">
+                    <div className="text-xl font-bold text-[#10ac8b]">
+                      <AnimatedCounter end={item.stats.value} suffix="%" />
+                    </div>
+                    <div className="text-xs text-muted">{item.stats.label}</div>
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* PASCO Benefits */}
-            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-center mb-8">How PASCO Benefits Learning</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-2 animate-scale-in" style={{ animationDelay: `${index * 0.2}s` }}>
-                    <div className="flex items-center justify-between mb-4">
-                      <benefit.icon className="h-8 w-8 text-[#094d88]" />
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-[#10ac8b]">
-                          <AnimatedCounter end={benefit.stats.value} suffix="%" />
-                        </div>
-                        <div className="text-xs text-gray-500">{benefit.stats.label}</div>
+            {/* Interactive PASCO Details */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 hover-lift">
+              <div className="grid lg:grid-cols-2 gap-8 items-center">
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    {pascoFramework[activeFeature % pascoFramework.length].word} Analysis
+                  </h3>
+                  <p className="text-lg text-muted">
+                    {pascoFramework[activeFeature % pascoFramework.length].description}
+                  </p>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-3">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span className="text-gray-700">Real-time data collection and analysis</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span className="text-gray-700">Adaptive learning path generation</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <CheckCircle className="h-5 w-5 text-green-500" />
+                      <span className="text-gray-700">Continuous improvement algorithms</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative">
+                  <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-6">
+                    <div className="text-center">
+                      <div className="w-24 h-24 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-full flex items-center justify-center mx-auto mb-4">
+                        {React.createElement(pascoFramework[activeFeature % pascoFramework.length].icon, {
+                          className: "h-12 w-12 text-white"
+                        })}
+                      </div>
+                      <h4 className="text-xl font-semibold mb-2">
+                        {pascoFramework[activeFeature % pascoFramework.length].word}
+                      </h4>
+                      <div className="text-3xl font-bold text-[#10ac8b] mb-1">
+                        <AnimatedCounter end={pascoFramework[activeFeature % pascoFramework.length].stats.value} suffix="%" />
+                      </div>
+                      <div className="text-sm text-muted">
+                        {pascoFramework[activeFeature % pascoFramework.length].stats.label}
                       </div>
                     </div>
-                    <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                    <p className="text-sm text-gray-600">{benefit.description}</p>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
       </IntersectionObserver>
 
-      {/* Small Language Model Section */}
+      {/* Product Features - Interactive */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-to-r from-gray-50 to-teal-50">
+        <section className="section-padding bg-white">
           <div className="container-custom">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
-                <div className="space-y-6">
-                  <div className="inline-flex items-center px-4 py-2 bg-white/50 rounded-full text-[#094d88] text-sm font-medium">
-                    Proprietary SLM
-                  </div>
-                  <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Small Language Model</h2>
-                  <p className="text-xl text-gray-600">
-                    EdgeUp uses its own proprietary Small Language Model (SLM) built using comprehensive educational resources and advanced AI technology.
-                  </p>
-                </div>
+            <div className="text-center mb-16">
+              <h2 className="heading-lg mb-4">Powerful Features for Modern Learning</h2>
+              <p className="text-xl text-muted max-w-3xl mx-auto">
+                Discover how our AI-powered platform transforms the learning experience for students and institutions.
+              </p>
+            </div>
 
-                <div className="space-y-6">
-                  <h3 className="text-xl font-semibold text-gray-900">Comprehensive Learning Resources</h3>
-                  <div className="space-y-4">
-                    {slmFeatures.map((feature, index) => (
-                      <div key={index} className="flex items-start space-x-4 animate-fade-in-left" style={{ animationDelay: `${index * 0.1}s` }}>
-                        <div className="flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center text-2xl shadow-sm">
-                          <CheckCircle className="h-6 w-6 text-[#10ac8b]" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold mb-1">{feature.title}</h4>
-                          <p className="text-gray-600 text-sm">{feature.description}</p>
-                        </div>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Feature Navigation */}
+              <div className="space-y-6">
+                {productFeatures.map((feature, index) => (
+                  <div
+                    key={index}
+                    className={`feature-card cursor-pointer transition-all duration-300 ${
+                      activeFeature === index ? 'ring-2 ring-[#10ac8b] bg-gradient-teal-light' : 'hover:bg-gray-50'
+                    }`}
+                    onClick={() => setActiveFeature(index)}
+                  >
+                    <div className="flex items-start space-x-4">
+                      <div className={`w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${
+                        activeFeature === index 
+                          ? 'bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white' 
+                          : 'bg-gray-100 text-gray-600'
+                      }`}>
+                        <feature.icon className="h-6 w-6" />
                       </div>
-                    ))}
+                      <div className="flex-1">
+                        <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
+                        <p className="text-muted mb-3">{feature.description}</p>
+                        <ul className="space-y-1">
+                          {feature.benefits.map((benefit, benefitIndex) => (
+                            <li key={benefitIndex} className="flex items-center text-sm text-gray-600">
+                              <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                              {benefit}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
 
+              {/* Feature Showcase */}
               <div className="relative">
-                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-300">
-                  <img 
-                    src="https://images.pexels.com/photos/5940721/pexels-photo-5940721.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                    alt="AI learning technology"
-                    className="w-full h-80 object-cover"
+                <div className="bg-white rounded-2xl shadow-2xl overflow-hidden hover-lift">
+                  <img
+                    src={productFeatures[activeFeature].image}
+                    alt={productFeatures[activeFeature].title}
+                    className="w-full h-80 object-cover transition-all duration-500"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                    <span className="text-white font-semibold text-lg">Intelligent content delivery powered by AI</span>
+                    <div className="text-white">
+                      <h4 className="text-xl font-semibold mb-2">{productFeatures[activeFeature].title}</h4>
+                      <p className="text-white/90">{productFeatures[activeFeature].description}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -251,10 +481,17 @@ const ProductPage: React.FC = () => {
 
       {/* CTA Section */}
       <IntersectionObserver>
-        <section className="section-padding bg-[#10ac8b] text-white relative overflow-hidden">
+        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
+          {/* Background pattern */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            }}></div>
+          </div>
+
           <div className="container-custom relative z-10">
             <div className="text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white animate-fade-in-up">
+              <h2 className="heading-lg mb-6 text-white animate-fade-in-up">
                 Ready to Transform Your Institution?
               </h2>
               <p className="text-xl text-white/90 mb-10 animate-fade-in-up delay-200">
@@ -262,15 +499,16 @@ const ProductPage: React.FC = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
                 <Link
-                  to="/contact?demo=true"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105"
+                  to="/book-demo"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#094d88] font-semibold rounded-lg hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
                 >
+                  <Play className="mr-2 h-5 w-5" />
                   Book a Demo Today
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
-                  to="/institutions"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#10ac8b] transition-all duration-300 hover:scale-105"
+                  to="/for-institutions"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
                 >
                   Learn More
                 </Link>
