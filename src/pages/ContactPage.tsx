@@ -144,7 +144,7 @@ const ContactPage: React.FC = () => {
           {[...Array(25)].map((_, i) => (
             <div
               key={i}
-              className="particle-magnetic"
+              className="particle-standard"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
@@ -202,7 +202,7 @@ const ContactPage: React.FC = () => {
                     ].map((item, index) => (
                       <div 
                         key={index}
-                        className={`group magnetic-card flex items-start space-x-4 p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 animate-fade-in-up cursor-pointer`}
+                        className={`group flex items-start space-x-4 p-6 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 animate-fade-in-up cursor-pointer`}
                         style={{ animationDelay: `${index * 200}ms` }}
                       >
                         <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
@@ -509,17 +509,17 @@ const ContactPage: React.FC = () => {
       </IntersectionObserver>
 
       <style jsx>{`
-        .particle-magnetic {
+        .particle-standard {
           position: absolute;
           width: 6px;
           height: 6px;
           background: linear-gradient(45deg, #094d88, #10ac8b);
           border-radius: 50%;
-          animation: magneticFloat 25s ease-in-out infinite;
+          animation: standardFloat 25s ease-in-out infinite;
           opacity: 0.4;
         }
 
-        @keyframes magneticFloat {
+        @keyframes standardFloat {
           0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
           25% { transform: translateY(-30px) translateX(20px) rotate(90deg); }
           50% { transform: translateY(-60px) translateX(-20px) rotate(180deg); }
@@ -532,15 +532,6 @@ const ContactPage: React.FC = () => {
           height: 100%;
           overflow: hidden;
           pointer-events: none;
-        }
-
-        .magnetic-card {
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .magnetic-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .floating-label-group {
