@@ -1,13 +1,24 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Download, ExternalLink, Calendar, User, ArrowRight } from 'lucide-react';
+import { Download, ExternalLink, Calendar, User, ArrowRight, Sparkles, Zap } from 'lucide-react';
 import IntersectionObserver from '../components/common/IntersectionObserver';
 import { useCMS } from '../context/CMSContext';
 
 const NewsPage: React.FC = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = "EdgeUp News & Media";
+    setIsLoaded(true);
+
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
   const { getContentBlocks } = useCMS();
@@ -87,21 +98,61 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
   ];
 
   return (
-    <main className="pt-16 overflow-hidden">
-      {/* Hero Section - Gridly Style */}
-      <section className="section-padding bg-gradient-light relative">
+    <main className="pt-16 overflow-hidden relative">
+      {/* Animated Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-white to-teal-50"></div>
+        
+        {/* Floating Particles */}
+        <div className="particles-container">
+          {[...Array(30)].map((_, i) => (
+            <div
+              key={i}
+              className="particle-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 10}s`,
+                animationDuration: `${10 + Math.random() * 20}s`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Dynamic Gradient Orbs */}
+        <div 
+          className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-teal-400/20 rounded-full blur-3xl"
+          style={{
+            left: mousePosition.x / 10,
+            top: mousePosition.y / 10,
+            transition: 'all 0.3s ease-out'
+          }}
+        />
+        <div 
+          className="absolute w-64 h-64 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
+          style={{
+            right: mousePosition.x / 15,
+            bottom: mousePosition.y / 15,
+            transition: 'all 0.5s ease-out'
+          }}
+        />
+      </div>
+
+      {/* Hero Section - Enhanced */}
+      <section className="section-padding relative z-10">
         <div className="container-custom">
           <div className="text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[#094d88]/10 to-[#10ac8b]/10 rounded-full text-[#094d88] text-sm font-medium mb-6 animate-fade-in-up">
-              <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
+            <div className={`inline-flex items-center px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-[#094d88] text-sm font-medium mb-8 border border-white/30 shadow-lg transition-all duration-1000 ${isLoaded ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`}>
+              <Sparkles className="w-4 h-4 mr-2 animate-pulse" />
               Latest News & Updates
+              <div className="ml-2 w-2 h-2 bg-[#10ac8b] rounded-full animate-pulse"></div>
             </div>
             
-            <h1 className="heading-xl animate-fade-in-up delay-200">
+            <h1 className={`text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] bg-clip-text text-transparent leading-tight transition-all duration-1000 delay-200 ${isLoaded ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`}>
               News & Media
             </h1>
             
-            <p className="text-xl text-muted mt-6 animate-fade-in-up delay-300">
+            <p className={`text-xl text-gray-600 mt-8 leading-relaxed transition-all duration-1000 delay-400 ${isLoaded ? 'animate-fade-in-up opacity-100' : 'opacity-0'}`}>
               Stay updated with the latest developments at EdgeUp as we transform
               the future of education through AI innovation.
             </p>
@@ -109,50 +160,67 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
         </div>
       </section>
 
-      {/* Featured Article - Gridly Style */}
+      {/* Featured Article - 3D Enhanced */}
       <IntersectionObserver>
-        <section className="section-padding bg-white">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
-            {newsItems.filter(item => item.featured).map((item) => (
-              <div key={item.id} className="max-w-6xl mx-auto">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
-                  <div className="space-y-6">
-                    <div className="space-y-4">
-                      <div className="flex items-center space-x-4 text-sm text-muted">
-                        <span className="bg-[#10ac8b] text-white px-3 py-1 rounded-full text-xs font-medium">
+            {newsItems.filter(item => item.featured).map((item, index) => (
+              <div key={item.id} className="max-w-7xl mx-auto">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                  <div className={`space-y-8 transition-all duration-1000 delay-${index * 200}`}>
+                    <div className="space-y-6">
+                      <div className="flex items-center space-x-4 text-sm">
+                        <span className="bg-gradient-to-r from-[#10ac8b] to-[#094d88] text-white px-4 py-2 rounded-full text-xs font-medium shadow-lg">
                           {item.category}
                         </span>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 text-gray-600">
                           <Calendar size={14} />
                           <span>{item.date}</span>
                         </div>
-                        <div className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2 text-gray-600">
                           <User size={14} />
                           <span>{item.author}</span>
                         </div>
                       </div>
                       
-                      <h2 className="heading-lg">{item.title}</h2>
-                      <p className="text-xl text-muted">{item.summary}</p>
+                      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent leading-tight">
+                        {item.title}
+                      </h2>
+                      <p className="text-xl text-gray-600 leading-relaxed">{item.summary}</p>
                     </div>
 
-                    <button className="btn-primary group">
-                      Read Full Article
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                    <button className="group relative overflow-hidden bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                      <span className="relative z-10 flex items-center">
+                        Read Full Article
+                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
+                      </span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#10ac8b] to-[#094d88] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     </button>
                   </div>
 
-                  <div className="relative">
-                    <div className="news-card hover-lift">
-                      <img
-                        className="w-full h-80 object-cover rounded-xl"
-                        src={item.image}
-                        alt={item.title}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-xl flex items-end p-6">
-                        <span className="text-white font-semibold text-lg">Featured Story</span>
+                  <div className="relative group">
+                    <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-2 shadow-2xl border border-white/20 hover:shadow-3xl transition-all duration-700 hover:scale-105 hover:rotate-1">
+                      <div className="relative overflow-hidden rounded-2xl">
+                        <img
+                          className="w-full h-96 object-cover transition-transform duration-700 group-hover:scale-110"
+                          src={item.image}
+                          alt={item.title}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute bottom-6 left-6 right-6">
+                          <div className="bg-white/20 backdrop-blur-md rounded-xl p-4 border border-white/30">
+                            <span className="text-white font-semibold text-lg flex items-center">
+                              <Zap className="mr-2 h-5 w-5" />
+                              Featured Story
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
+                    
+                    {/* Floating Elements */}
+                    <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b]/30 to-[#094d88]/30 rounded-full blur-xl animate-pulse"></div>
+                    <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88]/30 to-[#10ac8b]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
                   </div>
                 </div>
               </div>
@@ -161,46 +229,59 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
         </section>
       </IntersectionObserver>
 
-      {/* News Grid - Gridly Style */}
+      {/* News Grid - Staggered Animations */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-blue-light">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
-            <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">Latest Articles</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-6">
+                Latest Articles
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Insights, updates, and stories from the EdgeUp team.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {newsItems.filter(item => !item.featured).map((item, index) => (
-                <article key={item.id} className="news-card hover-lift animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="image-hover-zoom">
+                <article 
+                  key={item.id} 
+                  className={`group relative bg-white/10 backdrop-blur-md rounded-3xl overflow-hidden border border-white/20 shadow-xl hover:shadow-3xl transition-all duration-700 hover:scale-105 hover:-translate-y-4 animate-fade-in-up`}
+                  style={{ animationDelay: `${index * 200}ms` }}
+                >
+                  <div className="relative overflow-hidden">
                     <img
-                      className="w-full h-48 object-cover"
+                      className="w-full h-56 object-cover transition-transform duration-700 group-hover:scale-110"
                       src={item.image}
                       alt={item.title}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   </div>
-                  <div className="p-6">
-                    <div className="flex items-center space-x-4 text-sm text-muted mb-3">
-                      <span className="bg-[#094d88] text-white px-2 py-1 rounded text-xs font-medium">
+                  
+                  <div className="p-8">
+                    <div className="flex items-center space-x-4 text-sm mb-4">
+                      <span className="bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white px-3 py-1 rounded-full text-xs font-medium">
                         {item.category}
                       </span>
-                      <div className="flex items-center space-x-1">
+                      <div className="flex items-center space-x-1 text-gray-600">
                         <Calendar size={12} />
                         <span>{item.date}</span>
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-semibold mb-3 line-clamp-2">{item.title}</h3>
-                    <p className="text-muted mb-4 line-clamp-3">{item.summary}</p>
+                    <h3 className="text-xl font-bold mb-4 text-gray-900 group-hover:text-[#094d88] transition-colors duration-300 line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 mb-6 line-clamp-3 leading-relaxed">{item.summary}</p>
                     
-                    <button className="inline-flex items-center text-[#094d88] font-medium hover:text-[#10ac8b] transition-colors group">
+                    <button className="inline-flex items-center text-[#094d88] font-semibold hover:text-[#10ac8b] transition-all duration-300 group-hover:translate-x-2">
                       Read more
-                      <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      <ArrowRight size={16} className="ml-2 transition-transform group-hover:translate-x-1" />
                     </button>
                   </div>
+
+                  {/* Hover Glow Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#094d88]/5 to-[#10ac8b]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
                 </article>
               ))}
             </div>
@@ -208,112 +289,133 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
         </section>
       </IntersectionObserver>
 
-      {/* Media Kit Section - Gridly Style */}
+      {/* Media Kit Section - Glassmorphism Enhanced */}
       <IntersectionObserver>
-        <section className="section-padding bg-white">
+        <section className="section-padding relative z-10">
           <div className="container-custom">
-            <div className="text-center mb-16">
-              <h2 className="heading-lg mb-4">Media Kit & Resources</h2>
-              <p className="text-xl text-muted max-w-3xl mx-auto">
+            <div className="text-center mb-20">
+              <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-6">
+                Media Kit & Resources
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Download our media kit for brand assets, company information, and press materials.
               </p>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <div className="bg-gradient-teal-light p-8 rounded-xl">
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-2xl font-bold text-[#094d88] mb-2">EdgeUp Press Kit 2024</h3>
-                      <p className="text-muted">
-                        Complete media package including logos, brand guidelines, product screenshots, and company information.
-                      </p>
-                    </div>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <div className="relative group">
+                  <div className="bg-white/10 backdrop-blur-md p-10 rounded-3xl border border-white/20 shadow-2xl hover:shadow-3xl transition-all duration-700 hover:scale-105">
+                    <div className="space-y-8">
+                      <div>
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-[#094d88] to-[#10ac8b] bg-clip-text text-transparent mb-4">
+                          EdgeUp Press Kit 2024
+                        </h3>
+                        <p className="text-gray-600 leading-relaxed">
+                          Complete media package including logos, brand guidelines, product screenshots, and company information.
+                        </p>
+                      </div>
 
-                    <div className="space-y-3">
-                      {resources.map((resource, index) => (
-                        <div key={index} className="flex items-center justify-between p-3 bg-white rounded-lg">
-                          <div>
-                            <div className="font-medium text-sm">{resource.title}</div>
-                            <div className="text-xs text-muted">{resource.description}</div>
+                      <div className="space-y-4">
+                        {resources.map((resource, index) => (
+                          <div 
+                            key={index} 
+                            className="flex items-center justify-between p-4 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30 hover:bg-white/30 transition-all duration-300 hover:scale-105"
+                          >
+                            <div>
+                              <div className="font-semibold text-gray-900">{resource.title}</div>
+                              <div className="text-sm text-gray-600">{resource.description}</div>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-xs font-medium text-[#094d88]">{resource.type}</div>
+                              <div className="text-xs text-gray-500">{resource.size}</div>
+                            </div>
                           </div>
-                          <div className="text-right">
-                            <div className="text-xs text-muted">{resource.type}</div>
-                            <div className="text-xs text-muted">{resource.size}</div>
+                        ))}
+                      </div>
+
+                      <button className="group relative overflow-hidden w-full bg-gradient-to-r from-[#094d88] to-[#10ac8b] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105">
+                        <span className="relative z-10 flex items-center justify-center">
+                          <Download size={20} className="mr-3" />
+                          Download Complete Kit
+                          <ArrowRight className="ml-3 h-5 w-5 transition-transform group-hover:translate-x-2" />
+                        </span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-[#10ac8b] to-[#094d88] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-8">
+                  {[
+                    {
+                      title: 'Press Contact',
+                      content: (
+                        <div className="space-y-4">
+                          <div>
+                            <div className="font-semibold text-gray-900">Priya Sharma</div>
+                            <div className="text-gray-600">Head of Communications</div>
+                          </div>
+                          <div className="space-y-3">
+                            <a 
+                              href="mailto:press@edgeup.ai" 
+                              className="block text-[#094d88] hover:text-[#10ac8b] transition-colors font-medium"
+                            >
+                              press@edgeup.ai
+                            </a>
+                            <a 
+                              href="tel:+91-44-4500-2700" 
+                              className="block text-[#094d88] hover:text-[#10ac8b] transition-colors font-medium"
+                            >
+                              +91-44-4500-2700
+                            </a>
                           </div>
                         </div>
-                      ))}
+                      )
+                    },
+                    {
+                      title: 'Quick Facts',
+                      content: (
+                        <div className="space-y-4 text-sm">
+                          {[
+                            { label: 'Founded:', value: '2022' },
+                            { label: 'Headquarters:', value: 'Chennai, India' },
+                            { label: 'Funding:', value: '₹8 Cr Seed' },
+                            { label: 'Employees:', value: '135+' }
+                          ].map((fact, i) => (
+                            <div key={i} className="flex justify-between items-center">
+                              <span className="text-gray-600">{fact.label}</span>
+                              <span className="font-semibold text-gray-900">{fact.value}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )
+                    },
+                    {
+                      title: 'Follow Us',
+                      content: (
+                        <div className="flex space-x-4">
+                          {['Li', 'Tw', 'Ig'].map((social, i) => (
+                            <a 
+                              key={i}
+                              href="#" 
+                              className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-[#094d88] hover:text-white transition-all duration-300 hover:scale-110 border border-white/30"
+                            >
+                              <span className="font-bold">{social}</span>
+                            </a>
+                          ))}
+                        </div>
+                      )
+                    }
+                  ].map((section, index) => (
+                    <div 
+                      key={index}
+                      className="bg-white/10 backdrop-blur-md p-8 rounded-3xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                    >
+                      <h4 className="text-xl font-bold text-gray-900 mb-6">{section.title}</h4>
+                      {section.content}
                     </div>
-
-                    <button className="btn-primary w-full group">
-                      <Download size={20} className="mr-2" />
-                      Download Complete Kit
-                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Press Contact</h4>
-                    <div className="space-y-3">
-                      <div>
-                        <div className="font-medium">Priya Sharma</div>
-                        <div className="text-muted text-sm">Head of Communications</div>
-                      </div>
-                      <div className="space-y-2">
-                        <a 
-                          href="mailto:press@edgeup.ai" 
-                          className="block text-[#094d88] hover:text-[#10ac8b] transition-colors"
-                        >
-                          press@edgeup.ai
-                        </a>
-                        <a 
-                          href="tel:+91-44-4500-2700" 
-                          className="block text-[#094d88] hover:text-[#10ac8b] transition-colors"
-                        >
-                          +91-44-4500-2700
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Facts</h4>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-muted">Founded:</span>
-                        <span className="font-medium">2022</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted">Headquarters:</span>
-                        <span className="font-medium">Chennai, India</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted">Funding:</span>
-                        <span className="font-medium">₹8 Cr Seed</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted">Employees:</span>
-                        <span className="font-medium">135+</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h4 className="text-lg font-semibold text-gray-900 mb-4">Follow Us</h4>
-                    <div className="flex space-x-3">
-                      <a href="#" className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#094d88] hover:text-white transition-colors">
-                        <span className="text-sm font-bold">Li</span>
-                      </a>
-                      <a href="#" className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#094d88] hover:text-white transition-colors">
-                        <span className="text-sm font-bold">Tw</span>
-                      </a>
-                      <a href="#" className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center hover:bg-[#094d88] hover:text-white transition-colors">
-                        <span className="text-sm font-bold">Ig</span>
-                      </a>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -321,36 +423,82 @@ At EdgeUp, we've seen firsthand how our PASCO framework can transform learning o
         </section>
       </IntersectionObserver>
 
-      {/* CTA Section */}
+      {/* CTA Section - Enhanced */}
       <IntersectionObserver>
-        <section className="section-padding bg-gradient-edgeup text-white relative overflow-hidden">
-          <div className="container-custom relative z-10">
-            <div className="text-center max-w-4xl mx-auto">
-              <h2 className="heading-lg mb-6 text-white animate-fade-in-up">
-                Want to Learn More About EdgeUp?
-              </h2>
-              <p className="text-xl text-white/90 mb-10 animate-fade-in-up delay-200">
-                Schedule a demo to see how our AI-powered platform can transform learning at your institution.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up delay-400">
-                <Link
-                  to="/contact?demo=true"
-                  className="bg-white text-[#094d88] px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-105 hover:shadow-xl group"
-                >
-                  Book a Demo
-                  <ArrowRight className="ml-2 h-5 w-5 inline transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#094d88] transition-all duration-300 hover:scale-105"
-                >
-                  Contact Press Team
-                </Link>
+        <section className="section-padding relative z-10">
+          <div className="container-custom">
+            <div className="relative bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-black/20"></div>
+              <div className="relative z-10 text-center max-w-4xl mx-auto py-20 px-8">
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 animate-fade-in-up">
+                  Want to Learn More About EdgeUp?
+                </h2>
+                <p className="text-xl text-white/90 mb-12 animate-fade-in-up delay-200">
+                  Schedule a demo to see how our AI-powered platform can transform learning at your institution.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up delay-400">
+                  <Link
+                    to="/contact?demo=true"
+                    className="group relative overflow-hidden bg-white text-[#094d88] px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
+                  >
+                    <span className="relative z-10 flex items-center justify-center">
+                      Book a Demo
+                      <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
+                    </span>
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="group border-2 border-white text-white px-8 py-4 rounded-2xl font-semibold hover:bg-white hover:text-[#094d88] transition-all duration-500 hover:scale-105"
+                  >
+                    Contact Press Team
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
         </section>
       </IntersectionObserver>
+
+      <style jsx>{`
+        .particle-float {
+          position: absolute;
+          width: 4px;
+          height: 4px;
+          background: linear-gradient(45deg, #094d88, #10ac8b);
+          border-radius: 50%;
+          animation: float 20s ease-in-out infinite;
+          opacity: 0.6;
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          25% { transform: translateY(-20px) rotate(90deg); }
+          50% { transform: translateY(-40px) rotate(180deg); }
+          75% { transform: translateY(-20px) rotate(270deg); }
+        }
+
+        .particles-container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          pointer-events: none;
+        }
+
+        .line-clamp-2 {
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      `}</style>
     </main>
   );
 };
