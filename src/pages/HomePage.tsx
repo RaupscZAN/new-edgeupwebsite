@@ -14,6 +14,7 @@ import {
   Play,
   Star
 } from 'lucide-react';
+import Spline from '@splinetool/react-spline';
 import { useCMS } from '../context/CMSContext';
 import AnimatedCounter from '../components/common/AnimatedCounter';
 import IntersectionObserver from '../components/common/IntersectionObserver';
@@ -126,7 +127,7 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Section - Gridly Style */}
+      {/* Hero Section with Spline 3D Bot */}
       <section className="min-h-screen relative z-10">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
@@ -168,102 +169,18 @@ const HomePage: React.FC = () => {
                   </span>
                 </Link>
               </div>
-
-              {/* Stats Cards */}
-              <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700 relative z-30">
-                {stats.slice(0, 2).map((stat, index) => (
-                  <div key={index} className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
-                    <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg mb-3 mx-auto">
-                      <stat.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <div className="text-2xl font-bold text-[#094d88] mb-1 text-center">
-                      <AnimatedCounter end={stat.number} suffix={stat.suffix} />
-                    </div>
-                    <div className="text-sm text-gray-600 text-center">{stat.label}</div>
-                  </div>
-                ))}
-              </div>
             </div>
 
-            {/* Right side - Dashboard Mockup */}
-            <div className="relative animate-fade-in-right delay-400 z-10">
-              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl shadow-2xl p-6 border border-white/20 hover:shadow-3xl transition-all duration-700 hover:scale-105">
-                {/* Dashboard Header */}
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg"></div>
-                    <span className="font-semibold text-gray-900">EdgeUp Dashboard</span>
-                  </div>
-                  <div className="flex space-x-2">
-                    <div className="w-3 h-3 bg-red-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                    <div className="w-3 h-3 bg-green-400 rounded-full"></div>
-                  </div>
-                </div>
-
-                {/* Dashboard Content */}
-                <div className="space-y-4">
-                  {/* Progress Cards */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
-                      <div className="text-sm text-gray-600 mb-1">Active Students</div>
-                      <div className="text-2xl font-bold text-[#094d88]">
-                        <AnimatedCounter end={1248} />
-                      </div>
-                      <div className="text-xs text-green-600">+12% this month</div>
-                    </div>
-                    <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
-                      <div className="text-sm text-gray-600 mb-1">Completion Rate</div>
-                      <div className="text-2xl font-bold text-[#10ac8b]">
-                        <AnimatedCounter end={87} suffix="%" />
-                      </div>
-                      <div className="text-xs text-green-600">+5% this week</div>
-                    </div>
-                  </div>
-
-                  {/* Chart Mockup */}
-                  <div className="bg-white/20 backdrop-blur-sm p-4 rounded-xl border border-white/30">
-                    <div className="text-sm font-medium text-gray-700 mb-3">Learning Progress</div>
-                    <div className="flex items-end space-x-2 h-20">
-                      {[40, 65, 45, 80, 60, 90, 75].map((height, index) => (
-                        <div
-                          key={index}
-                          className="bg-gradient-to-t from-[#094d88] to-[#10ac8b] rounded-t flex-1 animate-scale-in"
-                          style={{ 
-                            height: `${height}%`,
-                            animationDelay: `${index * 0.1}s`
-                          }}
-                        ></div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Recent Activity */}
-                  <div className="space-y-2">
-                    <div className="text-sm font-medium text-gray-700">Recent Activity</div>
-                    {[
-                      { name: "UPSC Mock Test", progress: 85 },
-                      { name: "Current Affairs", progress: 92 },
-                      { name: "Essay Writing", progress: 78 }
-                    ].map((item, index) => (
-                      <div key={index} className="flex items-center justify-between py-2 animate-fade-in-left" style={{ animationDelay: `${index * 0.2}s` }}>
-                        <span className="text-sm text-gray-600">{item.name}</span>
-                        <div className="flex items-center space-x-2">
-                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-gradient-to-r from-[#094d88] to-[#10ac8b] transition-all duration-1000"
-                              style={{ width: `${item.progress}%` }}
-                            ></div>
-                          </div>
-                          <span className="text-xs text-gray-500">{item.progress}%</span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            {/* Right side - Spline 3D Bot */}
+            <div className="relative animate-fade-in-right delay-400 z-10 h-[600px]">
+              <div className="w-full h-full rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
+                <Spline
+                  scene="https://prod.spline.design/D7RnQq8HaP1fQXcb/scene.splinecode"
+                  style={{ width: '100%', height: '100%' }}
+                />
               </div>
-
-              {/* Floating elements */}
+              
+              {/* Floating elements around Spline */}
               <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b]/30 to-[#094d88]/30 rounded-full blur-xl animate-pulse"></div>
               <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88]/30 to-[#10ac8b]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
             </div>
@@ -271,7 +188,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
+      {/* Stats Section with Dashboard */}
       <IntersectionObserver>
         <section className="section-padding relative z-10">
           <div className="container-custom">
@@ -284,18 +201,102 @@ const HomePage: React.FC = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-4 text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl mb-4 mx-auto">
-                    <stat.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <div className="text-3xl font-bold text-[#094d88] mb-2">
-                    <AnimatedCounter end={stat.number} suffix={stat.suffix} />
-                  </div>
-                  <div className="text-gray-600">{stat.label}</div>
+            <div className="grid lg:grid-cols-3 gap-12 items-start">
+              {/* Stats Grid - Left Side */}
+              <div className="lg:col-span-2">
+                <div className="grid grid-cols-2 gap-8">
+                  {stats.map((stat, index) => (
+                    <div key={index} className="bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-4 text-center animate-scale-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-xl mb-4 mx-auto">
+                        <stat.icon className="h-8 w-8 text-white" />
+                      </div>
+                      <div className="text-3xl font-bold text-[#094d88] mb-2">
+                        <AnimatedCounter end={stat.number} suffix={stat.suffix} />
+                      </div>
+                      <div className="text-gray-600">{stat.label}</div>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+
+              {/* Dashboard - Right Side (Smaller) */}
+              <div className="lg:col-span-1">
+                <div className="relative bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-4 border border-white/20 hover:shadow-2xl transition-all duration-700 hover:scale-105 animate-fade-in-left delay-600">
+                  {/* Dashboard Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-2">
+                      <div className="w-6 h-6 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg"></div>
+                      <span className="font-semibold text-gray-900 text-sm">EdgeUp Dashboard</span>
+                    </div>
+                    <div className="flex space-x-1">
+                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                    </div>
+                  </div>
+
+                  {/* Dashboard Content */}
+                  <div className="space-y-3">
+                    {/* Progress Cards */}
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="bg-white/20 backdrop-blur-sm p-3 rounded-lg border border-white/30">
+                        <div className="text-xs text-gray-600 mb-1">Active Students</div>
+                        <div className="text-lg font-bold text-[#094d88]">
+                          <AnimatedCounter end={1248} />
+                        </div>
+                        <div className="text-xs text-green-600">+12% this month</div>
+                      </div>
+                      <div className="bg-white/20 backdrop-blur-sm p-3 rounded-lg border border-white/30">
+                        <div className="text-xs text-gray-600 mb-1">Completion Rate</div>
+                        <div className="text-lg font-bold text-[#10ac8b]">
+                          <AnimatedCounter end={87} suffix="%" />
+                        </div>
+                        <div className="text-xs text-green-600">+5% this week</div>
+                      </div>
+                    </div>
+
+                    {/* Chart Mockup */}
+                    <div className="bg-white/20 backdrop-blur-sm p-3 rounded-lg border border-white/30">
+                      <div className="text-xs font-medium text-gray-700 mb-2">Learning Progress</div>
+                      <div className="flex items-end space-x-1 h-12">
+                        {[40, 65, 45, 80, 60, 90, 75].map((height, index) => (
+                          <div
+                            key={index}
+                            className="bg-gradient-to-t from-[#094d88] to-[#10ac8b] rounded-t flex-1 animate-scale-in"
+                            style={{ 
+                              height: `${height}%`,
+                              animationDelay: `${index * 0.1}s`
+                            }}
+                          ></div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Recent Activity */}
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium text-gray-700">Recent Activity</div>
+                      {[
+                        { name: "UPSC Mock Test", progress: 85 },
+                        { name: "Current Affairs", progress: 92 },
+                        { name: "Essay Writing", progress: 78 }
+                      ].map((item, index) => (
+                        <div key={index} className="flex items-center justify-between py-1 animate-fade-in-left" style={{ animationDelay: `${index * 0.2}s` }}>
+                          <span className="text-xs text-gray-600">{item.name}</span>
+                          <div className="flex items-center space-x-1">
+                            <div className="w-12 h-1 bg-gray-200 rounded-full overflow-hidden">
+                              <div 
+                                className="h-full bg-gradient-to-r from-[#094d88] to-[#10ac8b] transition-all duration-1000"
+                                style={{ width: `${item.progress}%` }}
+                              ></div>
+                            </div>
+                            <span className="text-xs text-gray-500">{item.progress}%</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
