@@ -15,7 +15,6 @@ import {
   Star,
   ChevronDown
 } from 'lucide-react';
-import Spline from '@splinetool/react-spline';
 import { useCMS } from '../context/CMSContext';
 import AnimatedCounter from '../components/common/AnimatedCounter';
 import IntersectionObserver from '../components/common/IntersectionObserver';
@@ -111,18 +110,67 @@ const HomePage: React.FC = () => {
 
   return (
     <main className="overflow-hidden relative">
-      {/* New Spline Hero Section */}
+      {/* Enhanced Animated Hero Section */}
       <section className="h-screen relative overflow-hidden cursor-pointer" onClick={scrollToMainContent}>
-        {/* Spline 3D Background */}
-        <div className="absolute inset-0 w-full h-full">
-          <Spline
-            scene="https://prod.spline.design/D7RnQq8HaP1fQXcb/scene.splinecode"
-            style={{ width: '100%', height: '100%' }}
-          />
+        {/* Animated Background */}
+        <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-[#094d88] via-[#10ac8b] to-[#0d9488]">
+          {/* Animated Geometric Shapes */}
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Large floating orbs */}
+            <div className="absolute top-20 left-20 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-20 right-20 w-80 h-80 bg-white/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-3xl animate-pulse delay-500"></div>
+            
+            {/* Floating geometric shapes */}
+            <div className="floating-shapes">
+              {[...Array(15)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute bg-white/20 backdrop-blur-sm border border-white/30 animate-float-geometric"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: `${20 + Math.random() * 40}px`,
+                    height: `${20 + Math.random() * 40}px`,
+                    borderRadius: Math.random() > 0.5 ? '50%' : '8px',
+                    animationDelay: `${Math.random() * 8}s`,
+                    animationDuration: `${8 + Math.random() * 4}s`
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* AI-themed animated elements */}
+            <div className="absolute top-1/4 left-1/4 w-32 h-32 border-2 border-white/30 rounded-lg animate-spin-slow"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-24 h-24 border-2 border-white/40 rounded-full animate-pulse"></div>
+            
+            {/* Neural network lines */}
+            <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1000 1000">
+              <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="white" stopOpacity="0.6"/>
+                  <stop offset="100%" stopColor="white" stopOpacity="0.1"/>
+                </linearGradient>
+              </defs>
+              {[...Array(8)].map((_, i) => (
+                <line
+                  key={i}
+                  x1={Math.random() * 1000}
+                  y1={Math.random() * 1000}
+                  x2={Math.random() * 1000}
+                  y2={Math.random() * 1000}
+                  stroke="url(#lineGradient)"
+                  strokeWidth="2"
+                  className="animate-pulse"
+                  style={{ animationDelay: `${i * 0.5}s` }}
+                />
+              ))}
+            </svg>
+          </div>
         </div>
 
         {/* Overlay Content */}
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-black/20 flex items-center justify-center z-10">
           <div className="text-center text-white max-w-4xl mx-auto px-4">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 animate-fade-in-up">
               EdgeUp
@@ -506,6 +554,46 @@ const HomePage: React.FC = () => {
         }
 
         .particles-container {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          pointer-events: none;
+        }
+
+        @keyframes float-geometric {
+          0%, 100% { 
+            transform: translateY(0px) translateX(0px) rotate(0deg);
+            opacity: 0.3;
+          }
+          25% { 
+            transform: translateY(-30px) translateX(20px) rotate(90deg);
+            opacity: 0.6;
+          }
+          50% { 
+            transform: translateY(-60px) translateX(-10px) rotate(180deg);
+            opacity: 0.4;
+          }
+          75% { 
+            transform: translateY(-30px) translateX(-20px) rotate(270deg);
+            opacity: 0.7;
+          }
+        }
+
+        .animate-float-geometric {
+          animation: float-geometric 12s ease-in-out infinite;
+        }
+
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+
+        .floating-shapes {
           position: absolute;
           width: 100%;
           height: 100%;
