@@ -127,28 +127,40 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Hero Section with Spline 3D Bot */}
-      <section className="min-h-screen relative z-10">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
-            {/* Left side - Content */}
-            <div className="space-y-8 relative z-20">
+      {/* Hero Section with Spline 3D Background */}
+      <section className="min-h-screen relative z-10 overflow-hidden">
+        {/* Spline 3D Background - Right Side */}
+        <div className="absolute inset-0 lg:left-1/2 w-full lg:w-1/2 h-full">
+          <div className="w-full h-full">
+            <Spline
+              scene="https://prod.spline.design/D7RnQq8HaP1fQXcb/scene.splinecode"
+              style={{ width: '100%', height: '100%' }}
+            />
+          </div>
+          {/* Gradient overlay to blend with content */}
+          <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent lg:from-transparent lg:via-transparent lg:to-transparent"></div>
+        </div>
+
+        <div className="container-custom relative z-20">
+          <div className="min-h-screen py-20 flex items-center">
+            {/* Content Overlay - Full Width */}
+            <div className="w-full max-w-4xl space-y-8">
               <div className="space-y-6">
                 <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-[#094d88] text-sm font-medium border border-white/30 shadow-lg animate-fade-in-up">
                   <span className="w-2 h-2 bg-[#10ac8b] rounded-full mr-2 animate-pulse"></span>
                   Your Path to Digital Success
                 </div>
                 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] bg-clip-text text-transparent leading-tight relative z-30 animate-fade-in-up delay-200">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-[#094d88] via-[#10ac8b] to-[#094d88] bg-clip-text text-transparent leading-tight animate-fade-in-up delay-200">
                   AI-Powered Learning. Built for Institutions. Personalised for Learners.
                 </h1>
                 
-                <p className="text-xl text-gray-600 leading-relaxed animate-fade-in-up delay-300 relative z-30">
+                <p className="text-xl text-gray-700 leading-relaxed animate-fade-in-up delay-300 max-w-3xl bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20">
                   EdgeUp functions as an embedded study companion, enabling partners to offer adaptive learning journeys, smart content delivery, contextual nudges, and real-time learner support powered by proprietary AI models.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500 relative z-30">
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-500">
                 <Link
                   to="/book-demo"
                   className="group relative overflow-hidden bg-gradient-to-r from-[#10ac8b] to-[#0d9488] text-white px-8 py-4 rounded-2xl font-semibold shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105"
@@ -160,7 +172,7 @@ const HomePage: React.FC = () => {
                 </Link>
                 <Link
                   to="/product"
-                  className="group relative overflow-hidden border-2 border-[#094d88] text-[#094d88] px-8 py-4 rounded-2xl font-semibold hover:bg-[#094d88] hover:text-white transition-all duration-500 hover:scale-105"
+                  className="group relative overflow-hidden bg-white/20 backdrop-blur-md border-2 border-[#094d88] text-[#094d88] px-8 py-4 rounded-2xl font-semibold hover:bg-[#094d88] hover:text-white transition-all duration-500 hover:scale-105"
                 >
                   <span className="relative z-10 flex items-center justify-center">
                     <Play className="mr-2 h-4 w-4" />
@@ -169,23 +181,28 @@ const HomePage: React.FC = () => {
                   </span>
                 </Link>
               </div>
-            </div>
 
-            {/* Right side - Spline 3D Bot */}
-            <div className="relative animate-fade-in-right delay-400 z-10 h-[600px]">
-              <div className="w-full h-full rounded-3xl overflow-hidden bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
-                <Spline
-                  scene="https://prod.spline.design/D7RnQq8HaP1fQXcb/scene.splinecode"
-                  style={{ width: '100%', height: '100%' }}
-                />
+              {/* Stats Cards Overlay */}
+              <div className="grid grid-cols-2 gap-4 pt-8 animate-fade-in-up delay-700 max-w-2xl">
+                {stats.slice(0, 2).map((stat, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+                    <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-[#094d88] to-[#10ac8b] rounded-lg mb-3 mx-auto">
+                      <stat.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <div className="text-2xl font-bold text-[#094d88] mb-1 text-center">
+                      <AnimatedCounter end={stat.number} suffix={stat.suffix} />
+                    </div>
+                    <div className="text-sm text-gray-600 text-center">{stat.label}</div>
+                  </div>
+                ))}
               </div>
-              
-              {/* Floating elements around Spline */}
-              <div className="absolute -top-4 -right-4 w-20 h-20 bg-gradient-to-r from-[#10ac8b]/30 to-[#094d88]/30 rounded-full blur-xl animate-pulse"></div>
-              <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-[#094d88]/30 to-[#10ac8b]/30 rounded-full blur-xl animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
+
+        {/* Floating elements around the scene */}
+        <div className="absolute top-20 right-20 w-20 h-20 bg-gradient-to-r from-[#10ac8b]/20 to-[#094d88]/20 rounded-full blur-xl animate-pulse z-10"></div>
+        <div className="absolute bottom-32 right-32 w-16 h-16 bg-gradient-to-r from-[#094d88]/20 to-[#10ac8b]/20 rounded-full blur-xl animate-pulse delay-1000 z-10"></div>
       </section>
 
       {/* Stats Section with Dashboard */}
